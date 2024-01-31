@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+
 
 public class movement : MonoBehaviour
 {
@@ -34,8 +36,13 @@ public class movement : MonoBehaviour
     }
 
     void FixedUpdate(){
-        rb3D.velocity = new Vector3(horisontal * speed, rb3D.velocity.y, rb3D.velocity.z);
+        Move();
+    }
 
+    void Move()
+    {
+        rb3D.velocity = new Vector3(horisontal * speed, rb3D.velocity.y, rb3D.velocity.z);
+        this.transform.rotation = Quaternion.Euler(this.transform.rotation.x, 180 - horisontal * 90, this.transform.rotation.z);
     }
 
 }
