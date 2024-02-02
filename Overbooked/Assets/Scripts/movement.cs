@@ -64,6 +64,11 @@ public class movement : MonoBehaviour
 
     void FixedUpdate(){
         Move();
+        if(Input.GetKeyDown(KeyCode.H)){
+            ani.SetFloat("dance_var", 1);
+        }else{
+            ani.SetFloat("dance_var", 0);
+        }
     }
 
     void Move()
