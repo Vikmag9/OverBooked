@@ -35,6 +35,20 @@ public class movement : MonoBehaviour
 
     void FixedUpdate(){
         rb3D.velocity = new Vector3(horisontal * speed, rb3D.velocity.y, rb3D.velocity.z);
+        if(Mathf.Abs(Input.GetAxisRaw("Horizontal")) != 0){
+            rb3D.transform.eulerAngles = new Vector3(
+                rb3D.transform.eulerAngles.x,
+                90*(Input.GetAxisRaw("Horizontal")/Mathf.Abs(Input.GetAxisRaw("Horizontal"))),
+                rb3D.transform.eulerAngles.z
+            );
+        }
+        else{
+                        rb3D.transform.eulerAngles = new Vector3(
+                rb3D.transform.eulerAngles.x,
+                180,
+                rb3D.transform.eulerAngles.z
+            );
+        }
 
     }
 
