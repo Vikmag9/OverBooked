@@ -7,7 +7,13 @@ using UnityEngine.InputSystem;
 public class pickup_item : MonoBehaviour
 {
 
-    Ray ray;
+    Ray frontRay;
+    Ray leftRay;
+    Ray rightRay;
+
+    bool frontRayCast;
+    bool leftRayCast;
+    bool rightRayCast;
     float maxDistance = 10f;
     public LayerMask layerMask;
 
@@ -30,20 +36,16 @@ public class pickup_item : MonoBehaviour
 
     bool CheckForItem()
     {
+
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, maxDistance, layerMask))
+        if (canPickup && (Physics.Raycast(frontRay, out hit, maxDistance, layerMask) || Physics.Raycast(leftRay, out hit, maxDistance, layerMask) || Physics.Raycast(rightRay, out hit, maxDistance, layerMask)))
         {
+            
             pickedUpItem = hit.collider.gameObject;
+            canPickup = false;
             return true;
         }
         return false;
-    }
-
-    void PickupItem(){
-        if(canPickup && CheckForItem()){
-            Debug.Log("Item picked up");
-        }
-
     }
 
     //---------- Change position -------------------
@@ -54,6 +56,17 @@ public class pickup_item : MonoBehaviour
             objectHit.GetComponent<Collider>().enabled = false;
             objectHit.GetComponent<Rigidbody>().useGravity = false;
     }
+
+    void DropItem()
+    {
+            Debug.Log("drop");
+            pickedUpItem.GetComponent<Collider>().enabled = true;
+            pickedUpItem.GetComponent<Rigidbody>().useGravity = true;
+            pickedUpItem = null;
+            canPickup = true;
+    }
+
+    //---------- Update ---------------------------
 
     void FixedUpdate() {
         if(pickedUpItem != null){
@@ -66,7 +79,9 @@ public class pickup_item : MonoBehaviour
     void Update()
     {
         //Debug.Log(transform.forward);
-        ray = new Ray(transform.position, transform.forward);
+        frontRay = new Ray(transform.position, transform.forward);
+        leftRay = new Ray(transform.position, -transform.right);
+        rightRay = new Ray(transform.position, transform.right);
         //CheckForItem();
     }
 
@@ -80,7 +95,17 @@ public class pickup_item : MonoBehaviour
 
         pickup.Enable();
 
-        pickup.performed += ctx => PickupItem();
+
+        pickup.performed += checkKeypress;
+
+    }
+
+    void checkKeypress(InputAction.CallbackContext context){
+        if(canPickup){
+            CheckForItem();
+        }else{
+            DropItem();
+        }
     }
 
     private void OnDisable()
