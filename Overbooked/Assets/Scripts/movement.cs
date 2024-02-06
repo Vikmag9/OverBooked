@@ -22,6 +22,7 @@ public class movement : MonoBehaviour
     public PlayerController playerController;
     private InputAction move;
     private InputAction jump;
+    private InputAction dance;
 
 
     // Start is called before the first frame update
@@ -39,17 +40,21 @@ public class movement : MonoBehaviour
     {
         move = playerController.Player.Move;
         jump = playerController.Player.Jump;
+        dance = playerController.Player.Dance;
 
         move.Enable();
         jump.Enable();
+        dance.Enable();
 
         jump.performed += Jump;
+        dance.performed += Dance;
     }
 
     private void OnDisable()
     {
         move.Disable();
         jump.Disable();
+        dance.Disable();
     }
 
     // Update is called once per frame
@@ -64,11 +69,6 @@ public class movement : MonoBehaviour
 
     void FixedUpdate(){
         Move();
-        if(Input.GetKeyDown(KeyCode.H)){
-            ani.SetFloat("dance_var", 1);
-        }else{
-            ani.SetFloat("dance_var", 0);
-        }
     }
 
     void Move()
@@ -84,6 +84,11 @@ public class movement : MonoBehaviour
             inAir = true;
             rb3D.AddForce(new Vector3(0, 5, 0), ForceMode.Impulse);
         }
+    }
+
+    void Dance(InputAction.CallbackContext contex)
+    {
+        ani.SetFloat("dance_var", 1f);
     }
 
     private void OnCollisionEnter(Collision collision)
