@@ -48,6 +48,7 @@ public class movement : MonoBehaviour
 
         jump.performed += Jump;
         dance.performed += Dance;
+        dance.canceled += ctx => ani.SetFloat("dance_var", 0f);
     }
 
     private void OnDisable()
