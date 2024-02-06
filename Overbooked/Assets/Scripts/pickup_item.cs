@@ -14,7 +14,7 @@ public class pickup_item : MonoBehaviour
     bool frontRayCast;
     bool leftRayCast;
     bool rightRayCast;
-    float maxDistance = 10f;
+    float maxDistance = 20f;
     public LayerMask layerMask;
 
     private InputAction pickup;
