@@ -14,6 +14,7 @@ public class ElevatorMovement : MonoBehaviour
     private InputAction callElevator;
 
     private Vector2 moveDirection;
+    private Boolean calledElevator = false;
 
     public int currentLevel;
     private float elapsedTime = 0f;
@@ -53,6 +54,8 @@ public class ElevatorMovement : MonoBehaviour
 
         elevatorInput.Enable();
         callElevator.Enable();
+
+        callElevator.performed += context => calledElevator = true;
         
     }
 
@@ -63,7 +66,8 @@ public class ElevatorMovement : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        moveElevator();
+        MoveElevator();
+       
     }
 
     private void Update()
@@ -71,16 +75,32 @@ public class ElevatorMovement : MonoBehaviour
         //if(transform.position.y < levelList[currentLevel + 1].getLevelPos().position.y)
             
         moveDirection = elevatorInput.ReadValue<Vector2>();
+        CallElevator();
+
+    }
+
+    void MoveElevator()
+    {
+        if(transform.position.y < levelList[currentLevel+1].getLevelPos().position.y && transform.position.y > levelList[currentLevel].getLevelPos().position.y){ 
+        transform.Translate(0, moveDirection.y * 0.01f * elevatorSpeed * Time.deltaTime, 0);
+        }
 
 
+    }
+
+    void CallElevator()
+    {
+        //Get posistion of player who called the elevator and then decide what way
+        if(transform.position.y > levelList[currentLevel].getLevelPos().position.y && calledElevator)
+        {
+            transform.Translate(0, -0.01f * elevatorSpeed * Time.deltaTime, 0);
+        }
+
+        if (transform.position.y - 0.1f <= levelList[currentLevel].getLevelPos().position.y && calledElevator)
+        {
+            calledElevator = false;
+        }
         
     }
-
-    void moveElevator()
-    {
-        transform.Translate(0, moveDirection.y * 0.01f * elevatorSpeed * Time.deltaTime, 0);
-    }
-
-
 
 }
