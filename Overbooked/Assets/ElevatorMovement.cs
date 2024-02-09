@@ -12,14 +12,18 @@ public class ElevatorMovement : MonoBehaviour
     public ElevetorInputMap controller;
     private InputAction elevatorInput;
     private InputAction callElevator;
+    private InputAction moveElevatorUp;
+    private InputAction moveElevatorDown;
 
     private Vector2 moveDirection;
     private Boolean calledElevator = false;
+    private Boolean moveUpAFloor = false;
+    private Boolean moveDownAFloor = false;
 
     public int currentLevel;
-    private float elapsedTime = 0f;
-    private float duration = 10F;
-    private float elevatorSpeed = 75;
+    private float elevatorSpeed = 100f;
+
+
 
     [Serializable]
     public struct level
@@ -51,11 +55,16 @@ public class ElevatorMovement : MonoBehaviour
     {
         elevatorInput = controller.Elevator.MoveElevator;
         callElevator = controller.Elevator.Call;
+        moveElevatorUp = controller.Elevator.MoveElevatorUp;
+        moveElevatorDown = controller.Elevator.MoveElevatorDown;
 
         elevatorInput.Enable();
         callElevator.Enable();
+        moveElevatorUp.Enable();
+        moveElevatorDown.Enable();
 
         callElevator.performed += context => calledElevator = true;
+        
         
     }
 
@@ -63,11 +72,15 @@ public class ElevatorMovement : MonoBehaviour
     {
         elevatorInput.Disable();
         callElevator.Disable();
+        moveElevatorUp.Disable();
+        moveElevatorDown.Disable();
     }
     private void OnTriggerStay(Collider other)
     {
-        MoveElevator();
-       
+        moveElevatorUp.performed += context => moveUpAFloor = true;
+        moveElevatorDown.performed += context => moveDownAFloor = true;
+
+
     }
 
     private void Update()
@@ -76,15 +89,54 @@ public class ElevatorMovement : MonoBehaviour
             
         moveDirection = elevatorInput.ReadValue<Vector2>();
         CallElevator();
+        MoveElevatorUp();
+        MoveElevatorDown();
+
+
 
     }
 
-    void MoveElevator()
+    /*void MoveElevator()
     {
-        if(transform.position.y < levelList[currentLevel+1].getLevelPos().position.y && transform.position.y > levelList[currentLevel].getLevelPos().position.y){ 
+        if(transform.position.y < levelList[currentLevel+1].getLevelPos().position.y){ 
         transform.Translate(0, moveDirection.y * 0.01f * elevatorSpeed * Time.deltaTime, 0);
         }
 
+        if(transform.position.y > levelList[currentLevel + 1].getLevelPos().position.y-0.1f)
+        {
+            transform.position = new Vector3(0, levelList[currentLevel + 1].getLevelPos().position.y, 0);
+        }
+
+
+    }*/
+
+    void MoveElevatorUp()
+    {
+        if (transform.position.y < levelList[currentLevel + 1].getLevelPos().position.y && moveUpAFloor)
+        {
+            transform.Translate(0, 0.01f * elevatorSpeed * Time.deltaTime, 0);
+        }
+
+        if (transform.position.y > levelList[currentLevel + 1].getLevelPos().position.y - 0.1f)
+        {
+            transform.position = new Vector3(0, levelList[currentLevel + 1].getLevelPos().position.y, 0);
+            moveUpAFloor = false;
+        }
+
+    }
+
+    void MoveElevatorDown()
+    {
+        if (transform.position.y > levelList[currentLevel].getLevelPos().position.y && moveDownAFloor)
+        {
+            transform.Translate(0, -0.01f * elevatorSpeed * Time.deltaTime, 0);
+        }
+
+        if (transform.position.y < levelList[currentLevel].getLevelPos().position.y + 0.1f)
+        {
+            transform.position = new Vector3(0, levelList[currentLevel + 1].getLevelPos().position.y, 0);
+            moveDownAFloor = false;
+        }
 
     }
 

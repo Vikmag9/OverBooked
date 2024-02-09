@@ -44,6 +44,24 @@ public partial class @ElevetorInputMap: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MoveElevatorUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""8df3169f-79c1-453a-a29f-58247374419d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MoveElevatorDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""4b12730e-fce4-4c89-a6d2-0c554f9f97f7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -156,6 +174,50 @@ public partial class @ElevetorInputMap: IInputActionCollection2, IDisposable
                     ""action"": ""MoveElevator"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""df9e212c-a5cc-4804-a4ae-a5726afe2f23"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveElevatorUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c9d765e1-efc5-41a1-99da-b9966ff8e90a"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveElevatorUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2db487bb-be53-49b9-abb2-7ef0a9bf986c"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveElevatorDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""187e4593-fee6-4c66-bf37-751ede518972"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveElevatorDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -166,6 +228,8 @@ public partial class @ElevetorInputMap: IInputActionCollection2, IDisposable
         m_Elevator = asset.FindActionMap("Elevator", throwIfNotFound: true);
         m_Elevator_Call = m_Elevator.FindAction("Call", throwIfNotFound: true);
         m_Elevator_MoveElevator = m_Elevator.FindAction("MoveElevator", throwIfNotFound: true);
+        m_Elevator_MoveElevatorUp = m_Elevator.FindAction("MoveElevatorUp", throwIfNotFound: true);
+        m_Elevator_MoveElevatorDown = m_Elevator.FindAction("MoveElevatorDown", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -229,12 +293,16 @@ public partial class @ElevetorInputMap: IInputActionCollection2, IDisposable
     private List<IElevatorActions> m_ElevatorActionsCallbackInterfaces = new List<IElevatorActions>();
     private readonly InputAction m_Elevator_Call;
     private readonly InputAction m_Elevator_MoveElevator;
+    private readonly InputAction m_Elevator_MoveElevatorUp;
+    private readonly InputAction m_Elevator_MoveElevatorDown;
     public struct ElevatorActions
     {
         private @ElevetorInputMap m_Wrapper;
         public ElevatorActions(@ElevetorInputMap wrapper) { m_Wrapper = wrapper; }
         public InputAction @Call => m_Wrapper.m_Elevator_Call;
         public InputAction @MoveElevator => m_Wrapper.m_Elevator_MoveElevator;
+        public InputAction @MoveElevatorUp => m_Wrapper.m_Elevator_MoveElevatorUp;
+        public InputAction @MoveElevatorDown => m_Wrapper.m_Elevator_MoveElevatorDown;
         public InputActionMap Get() { return m_Wrapper.m_Elevator; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -250,6 +318,12 @@ public partial class @ElevetorInputMap: IInputActionCollection2, IDisposable
             @MoveElevator.started += instance.OnMoveElevator;
             @MoveElevator.performed += instance.OnMoveElevator;
             @MoveElevator.canceled += instance.OnMoveElevator;
+            @MoveElevatorUp.started += instance.OnMoveElevatorUp;
+            @MoveElevatorUp.performed += instance.OnMoveElevatorUp;
+            @MoveElevatorUp.canceled += instance.OnMoveElevatorUp;
+            @MoveElevatorDown.started += instance.OnMoveElevatorDown;
+            @MoveElevatorDown.performed += instance.OnMoveElevatorDown;
+            @MoveElevatorDown.canceled += instance.OnMoveElevatorDown;
         }
 
         private void UnregisterCallbacks(IElevatorActions instance)
@@ -260,6 +334,12 @@ public partial class @ElevetorInputMap: IInputActionCollection2, IDisposable
             @MoveElevator.started -= instance.OnMoveElevator;
             @MoveElevator.performed -= instance.OnMoveElevator;
             @MoveElevator.canceled -= instance.OnMoveElevator;
+            @MoveElevatorUp.started -= instance.OnMoveElevatorUp;
+            @MoveElevatorUp.performed -= instance.OnMoveElevatorUp;
+            @MoveElevatorUp.canceled -= instance.OnMoveElevatorUp;
+            @MoveElevatorDown.started -= instance.OnMoveElevatorDown;
+            @MoveElevatorDown.performed -= instance.OnMoveElevatorDown;
+            @MoveElevatorDown.canceled -= instance.OnMoveElevatorDown;
         }
 
         public void RemoveCallbacks(IElevatorActions instance)
@@ -281,5 +361,7 @@ public partial class @ElevetorInputMap: IInputActionCollection2, IDisposable
     {
         void OnCall(InputAction.CallbackContext context);
         void OnMoveElevator(InputAction.CallbackContext context);
+        void OnMoveElevatorUp(InputAction.CallbackContext context);
+        void OnMoveElevatorDown(InputAction.CallbackContext context);
     }
 }
