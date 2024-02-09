@@ -64,8 +64,8 @@ public class ElevatorMovement : MonoBehaviour
         moveElevatorDown.Enable();
 
         callElevator.performed += context => calledElevator = true;
-        
-        
+
+
     }
 
     private void OnDisable()
@@ -79,8 +79,12 @@ public class ElevatorMovement : MonoBehaviour
     {
         moveElevatorUp.performed += context => moveUpAFloor = true;
         moveElevatorDown.performed += context => moveDownAFloor = true;
-
-
+        
+    }
+    private void OnTriggerExit(Collider other) 
+    {
+        moveElevatorUp.canceled += context => moveUpAFloor = false;
+        moveElevatorDown.canceled += context => moveDownAFloor = false;
     }
 
     private void Update()
@@ -91,6 +95,22 @@ public class ElevatorMovement : MonoBehaviour
         CallElevator();
         MoveElevatorUp();
         MoveElevatorDown();
+
+        if (moveUpAFloor)
+        {
+            moveDownAFloor = false;
+            calledElevator = false;
+        }
+        if (moveDownAFloor)
+        {
+            moveUpAFloor = false;
+            calledElevator = false;
+        }
+        if (calledElevator)
+        {
+            moveUpAFloor = false;
+            moveDownAFloor = false;
+        }
 
 
 
@@ -117,10 +137,11 @@ public class ElevatorMovement : MonoBehaviour
             transform.Translate(0, 0.01f * elevatorSpeed * Time.deltaTime, 0);
         }
 
-        if (transform.position.y > levelList[currentLevel + 1].getLevelPos().position.y - 0.1f)
+        if (transform.position.y > levelList[currentLevel + 1].getLevelPos().position.y - 0.1f && moveUpAFloor)
         {
-            transform.position = new Vector3(0, levelList[currentLevel + 1].getLevelPos().position.y, 0);
             moveUpAFloor = false;
+            transform.position = new Vector3(0, levelList[currentLevel + 1].getLevelPos().position.y, 0);
+            
         }
 
     }
@@ -132,10 +153,11 @@ public class ElevatorMovement : MonoBehaviour
             transform.Translate(0, -0.01f * elevatorSpeed * Time.deltaTime, 0);
         }
 
-        if (transform.position.y < levelList[currentLevel].getLevelPos().position.y + 0.1f)
+        if (transform.position.y < levelList[currentLevel].getLevelPos().position.y + 0.1f && moveDownAFloor)
         {
-            transform.position = new Vector3(0, levelList[currentLevel + 1].getLevelPos().position.y, 0);
             moveDownAFloor = false;
+            transform.position = new Vector3(0, levelList[currentLevel].getLevelPos().position.y, 0);
+            
         }
 
     }
