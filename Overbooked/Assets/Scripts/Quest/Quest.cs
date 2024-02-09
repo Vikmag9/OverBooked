@@ -12,5 +12,7 @@ public class Quest
     public string description;
     public int goldReward;
 
+    public GoalType goal;
+
 }
 
