@@ -86,7 +86,9 @@ public class ElevatorMovement : MonoBehaviour
         //moveDirection = elevatorInput.ReadValue<Vector2>();
         CallElevator();
         MoveElevatorUp();
- 
+        MoveElevatorDown();
+
+
 
 
 
@@ -118,7 +120,7 @@ public class ElevatorMovement : MonoBehaviour
         {
             moving = false;
             moveUpAFloor = false;
-            currentLevel += 1;
+            //currentLevel += 1;
             transform.position = new Vector3(transform.position.x, levelList[currentLevel].getLevelPos().position.y, transform.position.z);
             ec.MovePlayerOutOfElevator(currentLevel);
             
@@ -139,7 +141,7 @@ public class ElevatorMovement : MonoBehaviour
             moving = false;
             moveDownAFloor = false;
             transform.position = new Vector3(transform.position.x, levelList[currentLevel].getLevelPos().position.y, transform.position.y);
-            
+            ec.MovePlayerOutOfElevator(currentLevel);
         }
 
     }
@@ -164,25 +166,25 @@ public class ElevatorMovement : MonoBehaviour
                 ec.MovePlayerInElevator(currentLevel, new Vector3(transform.position.x, transform.position.y, transform.position.z));
                 moveUpAFloor = true;
                 beforeLevel = currentLevel;
-                currentLevel = beforeLevel - 1;
+                currentLevel = beforeLevel + 1;
             }
         }
         else
         {
-            if (transform.position.y < levelList[currentLevel].getLevelPos().position.y && calledElevator)
+            if (transform.position.y < levelList[currentLevel-1].getLevelPos().position.y && calledElevator)
             {
                 moving = true;
                 transform.Translate(0, +0.01f * elevatorSpeed * Time.deltaTime, 0);
             }
 
-            if (transform.position.y + 0.1f >= levelList[currentLevel].getLevelPos().position.y && calledElevator)
+            if (transform.position.y + 0.1f >= levelList[currentLevel-1].getLevelPos().position.y && calledElevator)
             {
                 moving = false;
                 calledElevator = false;
                 ec.MovePlayerInElevator(currentLevel, new Vector3(transform.position.x, transform.position.y, transform.position.z));
                 moveDownAFloor = true;
                 currentLevel = beforeLevel;
-                beforeLevel = currentLevel - 1;
+                beforeLevel = currentLevel + 1;
             }
         }
 
