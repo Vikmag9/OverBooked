@@ -6,9 +6,9 @@ using UnityEngine;
 [System.Serializable]
 public class QuestGoal
 {
-    public GoalType goalType;
     public int requiredAmount;
     public int currentAmount;
+    public GoalType goalType;
 
     public bool IsReached()
     {
