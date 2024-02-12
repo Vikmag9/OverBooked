@@ -103,7 +103,7 @@ public class ElevatorMovement : MonoBehaviour
 
     void CallElevator()
     {
-        if(ec.getPlayer().GetComponent<PlayerManager>().getPlayerCurrentLevel() != currentLevel) 
+        /*if(ec.getPlayer().GetComponent<PlayerManager>().getPlayerCurrentLevel() != currentLevel) 
         {
             if (currentLevel < beforeLevel)
             {
@@ -120,6 +120,7 @@ public class ElevatorMovement : MonoBehaviour
                     moveUpAFloor = true;
                     beforeLevel = currentLevel;
                     currentLevel = beforeLevel + 1;
+                    
                 }
             }
 
@@ -142,7 +143,7 @@ public class ElevatorMovement : MonoBehaviour
             }
         }
         else
-        {
+        {*/
 
         if (currentLevel < beforeLevel)
         {
@@ -156,12 +157,12 @@ public class ElevatorMovement : MonoBehaviour
             {
                 moving = false;
                 calledElevator = false;
-                ec.MovePlayerInElevator(currentLevel, new Vector3(transform.position.x, transform.position.y, transform.position.z));
                 moveUpAFloor = true;
+                ec.MovePlayerInElevator(currentLevel, new Vector3(transform.position.x, transform.position.y, transform.position.z));
                 beforeLevel = currentLevel;
                 currentLevel = beforeLevel + 1;
                 
-            }
+                }
         }
         else
         {
@@ -175,15 +176,16 @@ public class ElevatorMovement : MonoBehaviour
             {
                 moving = false;
                 calledElevator = false;
-                ec.MovePlayerInElevator(currentLevel, new Vector3(transform.position.x, transform.position.y, transform.position.z));
                 moveDownAFloor = true;
+                ec.MovePlayerInElevator(currentLevel, new Vector3(transform.position.x, transform.position.y, transform.position.z));
                 currentLevel = beforeLevel;
                 beforeLevel = currentLevel + 1;
+                
                 }
-        }
+            }
         }
 
-    }
+    //}
 
     
 
