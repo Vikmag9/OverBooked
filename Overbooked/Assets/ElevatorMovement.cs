@@ -10,10 +10,6 @@ public class ElevatorMovement : MonoBehaviour
     // Start is called before the first frame update
     public level[] levelList;
     
-    private InputAction moveElevatorUp;
-    private InputAction moveElevatorDown;
-
-    private Vector2 moveDirection;
     private Boolean calledElevator = false;
     private Boolean moveUpAFloor = false;
     private Boolean moveDownAFloor = false;
@@ -21,7 +17,7 @@ public class ElevatorMovement : MonoBehaviour
 
     public int currentLevel;
     private int beforeLevel;
-    private float elevatorSpeed = 100f;
+    private float elevatorSpeed = 150f;
 
     public ElevatorCall ec;
 
@@ -56,57 +52,16 @@ public class ElevatorMovement : MonoBehaviour
     }
 
 
-    /*private void OnTriggerStay(Collider other)
-    {
-        if(other.tag == "Player")
-        {
-            moveElevatorUp.performed += context => moveUpAFloor = true;
-            moveElevatorDown.performed += context => moveDownAFloor = true;
-        }
-        
-        
-    }*/
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-
-            MoveElevatorUp();
-        }
-    }
-
-
-
 
     private void Update()
     {
-        //if(transform.position.y < levelList[currentLevel + 1].getLevelPos().position.y)
-            
-        //moveDirection = elevatorInput.ReadValue<Vector2>();
+;
         CallElevator();
         MoveElevatorUp();
         MoveElevatorDown();
 
-
-
-
-
     }
 
-    /*void MoveElevator()
-    {
-        if(transform.position.y < levelList[currentLevel+1].getLevelPos().position.y){ 
-        transform.Translate(0, moveDirection.y * 0.01f * elevatorSpeed * Time.deltaTime, 0);
-        }
-
-        if(transform.position.y > levelList[currentLevel + 1].getLevelPos().position.y-0.1f)
-        {
-            transform.position = new Vector3(0, levelList[currentLevel + 1].getLevelPos().position.y, 0);
-        }
-
-
-    }*/
 
     void MoveElevatorUp()
     {
@@ -148,9 +103,47 @@ public class ElevatorMovement : MonoBehaviour
 
     void CallElevator()
     {
+        if(ec.getPlayer().GetComponent<PlayerManager>().getPlayerCurrentLevel() != currentLevel) 
+        {
+            if (currentLevel < beforeLevel)
+            {
+                if (transform.position.y > levelList[currentLevel].getLevelPos().position.y && calledElevator)
+                {
+                    moving = true;
+                    transform.Translate(0, -0.01f * elevatorSpeed * Time.deltaTime, 0);
+                }
 
-        //Get posistion of player who called the elevator and then decide what way
-        //if(ec.getPlayer().GetComponent<PlayerManager>().getPlayerCurrentLevel() < currentLevel)
+                if (transform.position.y - 0.1f <= levelList[currentLevel].getLevelPos().position.y && calledElevator)
+                {
+                    moving = false;
+                    calledElevator = false;
+                    moveUpAFloor = true;
+                    beforeLevel = currentLevel;
+                    currentLevel = beforeLevel + 1;
+                }
+            }
+
+            else
+            {
+                if (transform.position.y < levelList[currentLevel - 1].getLevelPos().position.y && calledElevator)
+                {
+                    moving = true;
+                    transform.Translate(0, +0.01f * elevatorSpeed * Time.deltaTime, 0);
+                }
+
+                if (transform.position.y + 0.1f >= levelList[currentLevel - 1].getLevelPos().position.y && calledElevator)
+                {
+                    moving = false;
+                    calledElevator = false;
+                    moveDownAFloor = true;
+                    currentLevel = beforeLevel;
+                    beforeLevel = currentLevel + 1;
+                }
+            }
+        }
+        else
+        {
+
         if (currentLevel < beforeLevel)
         {
             if(transform.position.y > levelList[currentLevel].getLevelPos().position.y && calledElevator)
@@ -167,6 +160,7 @@ public class ElevatorMovement : MonoBehaviour
                 moveUpAFloor = true;
                 beforeLevel = currentLevel;
                 currentLevel = beforeLevel + 1;
+                
             }
         }
         else
@@ -185,7 +179,8 @@ public class ElevatorMovement : MonoBehaviour
                 moveDownAFloor = true;
                 currentLevel = beforeLevel;
                 beforeLevel = currentLevel + 1;
-            }
+                }
+        }
         }
 
     }

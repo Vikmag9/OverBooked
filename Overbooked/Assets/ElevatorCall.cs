@@ -54,7 +54,7 @@ public class ElevatorCall : MonoBehaviour
     public void MovePlayerOutOfElevator(int currentLevel)
     {
         player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z - 3f);
-        player.GetComponent<PlayerManager>().setPlayerCurrentLevel(currentLevel);
+        //player.GetComponent<PlayerManager>().setPlayerCurrentLevel(currentLevel);
 
 
     }
