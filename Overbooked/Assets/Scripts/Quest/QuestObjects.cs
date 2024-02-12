@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 [CreateAssetMenu(fileName = "new card", menuName = "Card")]
 
 public class QuestObjects : ScriptableObject

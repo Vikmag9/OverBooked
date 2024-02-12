@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 80451472}
   - component: {fileID: 80451471}
   m_Layer: 5
-  m_Name: NameText (1)
+  m_Name: DescriptionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -465,6 +465,7 @@ GameObject:
   m_Component:
   - component: {fileID: 427055577}
   - component: {fileID: 427055576}
+  - component: {fileID: 427055578}
   m_Layer: 0
   m_Name: Quest Manager
   m_TagString: Untagged
@@ -505,6 +506,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &427055578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 427055575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b58c7bf24d79ac48b4ba9c770e203a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  quest: {fileID: 11400000, guid: 67c31479f34559044bb7e3fc1e13bd3c, type: 2}
+  nameText: {fileID: 1144405595}
+  descriptionText: {fileID: 80451471}
+  iconImage: {fileID: 505213359}
 --- !u!1 &459442210
 GameObject:
   m_ObjectHideFlags: 0
@@ -1234,7 +1251,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 7.03}
+  m_AnchoredPosition: {x: 0, y: 4.1}
   m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2030500364
