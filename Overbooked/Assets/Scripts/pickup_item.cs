@@ -17,9 +17,10 @@ public class pickup_item : MonoBehaviour
     float maxDistance = 20f;
     public LayerMask layerMask;
 
-    private InputAction pickup;
+    
 
     private PlayerController playerController;
+    private InputAction pickup;
 
     bool canPickup = true;
     private GameObject pickupHand;
