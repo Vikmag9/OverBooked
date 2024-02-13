@@ -21,12 +21,15 @@ public class DisplayQuest : MonoBehaviour
         
     }
 
-    public void OpenQuestWindow(QuestObjects quest)
+    public void OpenQuestWindow(QuestObjects quest, Vector3 roomPosition)
     {
+        
+        questWindow.transform.position = new Vector3(roomPosition.x, roomPosition.y, roomPosition.z);
         questWindow.SetActive(true);
-
         nameText.text = quest.name;
         descriptionText.text = quest.description;
         iconImage.sprite = quest.icon;
     }
+
+    public void CloseQuestWindow() { questWindow.SetActive(false); }
 }

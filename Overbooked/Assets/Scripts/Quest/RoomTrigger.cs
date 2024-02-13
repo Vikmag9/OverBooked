@@ -8,6 +8,7 @@ public class RoomTrigger : MonoBehaviour
     public PlayerController controller;
     private InputAction questButton;
     public GameManager gm;
+    public QuestGiver qg;
 
     private void Awake()
     {
@@ -30,7 +31,7 @@ public class RoomTrigger : MonoBehaviour
         questButton.performed += pressedButton;
     }
 
-    private void pressedButton(InputAction.CallbackContext contex) { gm.setGold(10); }
+    private void pressedButton(InputAction.CallbackContext contex) { gm.setGold(10); qg.DeactivateQuest(); }
 
 
 }

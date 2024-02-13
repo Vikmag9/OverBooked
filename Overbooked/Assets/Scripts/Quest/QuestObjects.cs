@@ -7,8 +7,10 @@ using UnityEngine.UI;
 
 public class QuestObjects : ScriptableObject
 {
-    public string name;
+    public new string name;
     public string description;
 
     public Sprite icon;
+
+    public bool isActive;
 }
