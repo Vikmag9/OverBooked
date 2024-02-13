@@ -13,8 +13,18 @@ public class DisplayQuest : MonoBehaviour
 
     public Image iconImage;
 
+    public GameObject questWindow;
+
     private void Start()
     {
+        questWindow.SetActive(false);
+        
+    }
+
+    public void OpenQuestWindow(QuestObjects quest)
+    {
+        questWindow.SetActive(true);
+
         nameText.text = quest.name;
         descriptionText.text = quest.description;
         iconImage.sprite = quest.icon;
