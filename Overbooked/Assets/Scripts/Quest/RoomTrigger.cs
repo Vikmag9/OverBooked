@@ -9,6 +9,7 @@ public class RoomTrigger : MonoBehaviour
     private InputAction questButton;
     public GameManager gm;
     public QuestGiver qg;
+    private bool inCollider;
 
     private void Awake()
     {
@@ -26,9 +27,26 @@ public class RoomTrigger : MonoBehaviour
     {
         questButton.Disable();
     }
-    private void OnTriggerStay(Collider other)
+    
+    void Update()
     {
-        questButton.performed += pressedButton;
+
+        if (inCollider)
+        {
+            questButton.performed += pressedButton;
+            Debug.Log(questButton.performed);
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        inCollider = true;
+        
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        inCollider = false;
+        
     }
 
     private void pressedButton(InputAction.CallbackContext contex) { gm.setGold(10); qg.DeactivateQuest(); }

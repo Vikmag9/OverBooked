@@ -8,26 +8,20 @@ public class QuestGiver : MonoBehaviour
     public QuestObjects quest;
     public DisplayQuest questWindow;
     public GameObject bc;
+    private bool spawnQuestActive = true;
 
     public List<QuestObjects> questList;
 
-    private int timer = 100;
 
 
     private void Start()
     {
         
-        quest = questList[Random.Range(0, questList.Count)];
-        quest.isActive = true;
+        StartCoroutine(SetQuestActive(2f));
     }
     private void Update()
     {
-        timer--;
-        if(timer <= 0)
-        {
-            
-            questWindow.OpenQuestWindow(quest, bc.transform.position);
-        }
+        
 
         if (quest.isActive == false)
         {
@@ -38,5 +32,39 @@ public class QuestGiver : MonoBehaviour
     public void DeactivateQuest()
     {
         quest.isActive = false;
+        spawnQuestActive = true;
+        StartCoroutine(SetQuestActive(2f));
+
     }
+
+    private QuestObjects getRandomQuest()
+    {
+        return questList[Random.Range(0, questList.Count)];
+        
+    }
+
+    private void SpawnQuest()
+    {
+        quest = getRandomQuest();
+        quest.isActive = true;
+        questWindow.OpenQuestWindow(quest, bc.transform.position);
+
+
+    }
+
+    public IEnumerator SetQuestActive(float waitTime)
+    {
+        while (spawnQuestActive)
+        {
+         
+            yield return new WaitForSeconds(waitTime);
+            Debug.Log("hej");
+            SpawnQuest();
+            spawnQuestActive = false;
+            
+
+        }
+        
+    }
+
 }
