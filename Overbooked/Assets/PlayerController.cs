@@ -80,6 +80,15 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Quest"",
+                    ""type"": ""Button"",
+                    ""id"": ""334a21d3-3322-4f1a-8322-8cd12ca0868c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -355,6 +364,17 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Pickup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3fbf5f53-8267-4f81-a694-f471db29dab1"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Quest"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -948,6 +968,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Dance = m_Player.FindAction("Dance", throwIfNotFound: true);
         m_Player_Pickup = m_Player.FindAction("Pickup", throwIfNotFound: true);
+        m_Player_Quest = m_Player.FindAction("Quest", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1027,6 +1048,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Dance;
     private readonly InputAction m_Player_Pickup;
+    private readonly InputAction m_Player_Quest;
     public struct PlayerActions
     {
         private @PlayerController m_Wrapper;
@@ -1037,6 +1059,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Dance => m_Wrapper.m_Player_Dance;
         public InputAction @Pickup => m_Wrapper.m_Player_Pickup;
+        public InputAction @Quest => m_Wrapper.m_Player_Quest;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1064,6 +1087,9 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @Pickup.started += instance.OnPickup;
             @Pickup.performed += instance.OnPickup;
             @Pickup.canceled += instance.OnPickup;
+            @Quest.started += instance.OnQuest;
+            @Quest.performed += instance.OnQuest;
+            @Quest.canceled += instance.OnQuest;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1086,6 +1112,9 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @Pickup.started -= instance.OnPickup;
             @Pickup.performed -= instance.OnPickup;
             @Pickup.canceled -= instance.OnPickup;
+            @Quest.started -= instance.OnQuest;
+            @Quest.performed -= instance.OnQuest;
+            @Quest.canceled -= instance.OnQuest;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1274,6 +1303,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnDance(InputAction.CallbackContext context);
         void OnPickup(InputAction.CallbackContext context);
+        void OnQuest(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
