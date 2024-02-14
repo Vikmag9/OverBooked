@@ -15,6 +15,8 @@ public class DisplayQuest : MonoBehaviour
 
     public GameObject questWindow;
 
+    public Slider slider;
+
     private void Start()
     {
         questWindow.SetActive(false);
@@ -32,4 +34,9 @@ public class DisplayQuest : MonoBehaviour
     }
 
     public void CloseQuestWindow() { questWindow.SetActive(false); }
+
+    public void SetSliderValue(int value)
+    {
+        slider.value = value;
+    }
 }

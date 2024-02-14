@@ -21,35 +21,43 @@ public class RoomTrigger : MonoBehaviour
         questButton = controller.Player.Quest;
         questButton.Enable();
 
-        
+
     }
     private void OnDisable()
     {
         questButton.Disable();
     }
-    
+
     void Update()
     {
 
         if (inCollider)
         {
-            questButton.performed += pressedButton;
-            Debug.Log(questButton.performed);
+            //questButton.performed += pressedButton;
         }
     }
     private void OnTriggerEnter(Collider other)
     {
-        inCollider = true;
+        if (other.CompareTag("Player"))
+        {
+            inCollider = true;
+            questButton.Enable();
+            questButton.performed += pressedButton;
+        }
         
+
     }
 
     private void OnTriggerExit(Collider other)
     {
-        inCollider = false;
-        
+        if (other.CompareTag("Player"))
+        {
+            inCollider = false;
+            questButton.Disable();
+        }
+
     }
 
-    private void pressedButton(InputAction.CallbackContext contex) { gm.setGold(10); qg.DeactivateQuest(); }
-
+    private void pressedButton(InputAction.CallbackContext contex) { qg.PerformQuest(); }
 
 }

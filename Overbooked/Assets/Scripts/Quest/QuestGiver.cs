@@ -8,9 +8,14 @@ public class QuestGiver : MonoBehaviour
     public QuestObjects quest;
     public DisplayQuest questWindow;
     public GameObject bc;
+    int perform = 0;
     private bool spawnQuestActive = true;
 
     public List<QuestObjects> questList;
+    public List<BoxCollider> rooms;
+    private BoxCollider room;
+
+    public GameManager gm;
 
 
 
@@ -31,10 +36,17 @@ public class QuestGiver : MonoBehaviour
 
     public void DeactivateQuest()
     {
-        quest.isActive = false;
-        spawnQuestActive = true;
-        StartCoroutine(SetQuestActive(2f));
-
+        if (quest.isActive)
+        {
+            quest.isActive = false;
+            spawnQuestActive = true;
+            StartCoroutine(SetQuestActive(2f));
+            gm.setGold(10);
+            perform = 0;
+            questWindow.SetSliderValue(perform);
+            
+        }
+        
     }
 
     private QuestObjects getRandomQuest()
@@ -43,11 +55,17 @@ public class QuestGiver : MonoBehaviour
         
     }
 
+    private BoxCollider getRandomRoom()
+    {
+        return rooms[Random.Range(0, rooms.Count)];
+    }
+
     private void SpawnQuest()
     {
         quest = getRandomQuest();
+        room = getRandomRoom();
         quest.isActive = true;
-        questWindow.OpenQuestWindow(quest, bc.transform.position);
+        questWindow.OpenQuestWindow(quest, room.transform.position);
 
 
     }
@@ -65,6 +83,16 @@ public class QuestGiver : MonoBehaviour
 
         }
         
+    }
+
+    public void PerformQuest()
+    {
+        perform += 1;
+        questWindow.SetSliderValue(perform);
+        if(perform >= 3)
+        {
+            DeactivateQuest();
+        }
     }
 
 }

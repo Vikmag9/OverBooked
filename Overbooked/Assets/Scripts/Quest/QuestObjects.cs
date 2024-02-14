@@ -11,6 +11,7 @@ public class QuestObjects : ScriptableObject
     public string description;
 
     public Sprite icon;
+    public QuestGoal type;
 
     public bool isActive;
 }

@@ -8,6 +8,7 @@ public class QuestGoal
 {
     public int requiredAmount;
     public int currentAmount;
+
     public GoalType goalType;
 
     public bool IsReached()
