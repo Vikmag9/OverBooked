@@ -15,4 +15,5 @@ public class QuestObjects : ScriptableObject
 
     public bool isActive;
     public int roomId;
+    public float timer;
 }

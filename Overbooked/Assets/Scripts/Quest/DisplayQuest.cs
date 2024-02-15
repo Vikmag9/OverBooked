@@ -26,7 +26,7 @@ public class DisplayQuest : MonoBehaviour
     public void OpenQuestWindow(QuestObjects quest, Vector3 roomPosition)
     {
         
-        questWindow.transform.position = new Vector3(roomPosition.x, roomPosition.y, roomPosition.z - 5f);
+        questWindow.transform.position = new Vector3(roomPosition.x + 2.55f, roomPosition.y + 1, roomPosition.z - 5f);
         questWindow.SetActive(true);
         nameText.text = quest.name;
         descriptionText.text = quest.description;
@@ -35,7 +35,7 @@ public class DisplayQuest : MonoBehaviour
 
     public void CloseQuestWindow() { questWindow.SetActive(false); }
 
-    public void SetSliderValue(int value)
+    public void SetSliderValue(float value)
     {
         slider.value = value;
     }

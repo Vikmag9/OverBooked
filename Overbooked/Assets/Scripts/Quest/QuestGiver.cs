@@ -18,6 +18,7 @@ public class QuestGiver : MonoBehaviour
     public GameManager gm;
 
     public int id;
+    private float questTimer = 1000f;
 
 
 
@@ -31,21 +32,25 @@ public class QuestGiver : MonoBehaviour
     private void Update()
     {
         
-
-        if (quest.isActive == false)
+        if(quest != null)
         {
-            questWindow.CloseQuestWindow();
+           CountDownQuestTimer();
+            if (quest.isActive == false)
+            {
+                questWindow.CloseQuestWindow();
+            }
         }
+        
     }
 
-    public void DeactivateQuest()
+    public void DeactivateQuest(int gold)
     {
         if (quest.isActive)
         {
             quest.isActive = false;
             spawnQuestActive = true;
             StartCoroutine(SetQuestActive(2f));
-            gm.setGold(10);
+            gm.setGold(gold);
             
             
             
@@ -72,6 +77,7 @@ public class QuestGiver : MonoBehaviour
         perform = 0;
         questWindow.SetSliderValue(perform);
         quest.isActive = true;
+        quest.timer = questTimer;
         quest.roomId = room.GetComponent<RoomTrigger>().id;
         questWindow.OpenQuestWindow(quest, room.transform.position);
 
@@ -103,10 +109,20 @@ public class QuestGiver : MonoBehaviour
             questWindow.SetSliderValue(perform);
             if (perform >= 3)
             {
-                DeactivateQuest();
+                DeactivateQuest(10);
             }
         }
         
+    }
+
+    private void CountDownQuestTimer()
+    {
+        quest.timer -= 1f;
+        questWindow.SetSliderValue(quest.timer);
+        if(quest.timer <= 0)
+        {
+            DeactivateQuest(-10);
+        }
     }
 
 }
