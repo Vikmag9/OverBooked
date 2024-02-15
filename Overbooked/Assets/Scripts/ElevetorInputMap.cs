@@ -68,7 +68,7 @@ public partial class @ElevetorInputMap: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""800442f2-86e5-49bb-bed5-3ba88051857b"",
-                    ""path"": ""<Keyboard>/q"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

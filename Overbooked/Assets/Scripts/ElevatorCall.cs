@@ -15,6 +15,7 @@ public class ElevatorCall : MonoBehaviour
     private void Awake()
     {
         controller = new ElevetorInputMap();
+        
 
     }
 
@@ -38,7 +39,7 @@ public class ElevatorCall : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        player = null;
+        //player = null;
     }
 
 
@@ -47,7 +48,7 @@ public class ElevatorCall : MonoBehaviour
     {
         if (currentLevel == player.GetComponent<PlayerManager>().getPlayerCurrentLevel())
         {
-            player.transform.position = new Vector3(currentPosition.x, currentPosition.y + 1, currentPosition.z);
+            player.transform.position = new Vector3(currentPosition.x, currentPosition.y, currentPosition.z+1);
         }
     }
 
