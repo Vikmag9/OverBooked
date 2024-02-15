@@ -18,7 +18,6 @@ public class pickup_item : MonoBehaviour
     public LayerMask layerMask;
 
     
-
     private PlayerController playerController;
     private InputAction pickup;
 

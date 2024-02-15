@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     private int currentLevel = 0;
+    private List<QuestObjects> activeQuests;
 
     public int getPlayerCurrentLevel()
     {
@@ -15,5 +16,7 @@ public class PlayerManager : MonoBehaviour
     {
         this.currentLevel = newLevel;
     }
+
+    
 
 }
