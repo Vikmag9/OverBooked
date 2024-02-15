@@ -20,6 +20,9 @@ public class QuestGiver : MonoBehaviour
     public int id;
     private float questTimer = 1000f;
 
+    private bool clean;
+    private bool roomservic;
+
 
 
     private void Start()
@@ -27,8 +30,17 @@ public class QuestGiver : MonoBehaviour
       
         StartCoroutine(SetQuestActive(2f));
         EventManager.current.onRoomEnter += PerformQuest;
+        EventManager.current.pickedUpCleaningItem += HoldingCleaningItem;
+        EventManager.current.pickedUpRoomservicItem += HoldingRoomservicItem;
+        EventManager.current.droppedItem += DroopingItem;
         
     }
+
+    private void Current_pickedUpCleaningItem()
+    {
+        throw new System.NotImplementedException();
+    }
+
     private void Update()
     {
         
@@ -98,7 +110,7 @@ public class QuestGiver : MonoBehaviour
     public void PerformQuest(int id)
     {
         this.id = id;
-        if (id == this.id && id == quest.roomId)
+        if (id == this.id && id == quest.roomId && CheckRequirements())
         {
             
             perform += 1;
@@ -121,4 +133,32 @@ public class QuestGiver : MonoBehaviour
         }
     }
 
+
+    private void HoldingCleaningItem()
+    {
+        clean = true;
+    }
+
+    private void HoldingRoomservicItem()
+    {
+        roomservic = true;
+    }
+    private void DroopingItem()
+    {
+        clean = false;
+        roomservic = false;
+    }
+
+    private bool CheckRequirements()
+    {
+        if(quest.type.goalType == GoalType.Clean && clean)
+        {
+            return true;
+        }
+        else if(quest.type.goalType == GoalType.Roomservice && roomservic)
+        {
+            return true;
+        }
+        return false;
+    }
 }

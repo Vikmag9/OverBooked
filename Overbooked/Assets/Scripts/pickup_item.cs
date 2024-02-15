@@ -30,6 +30,7 @@ public class pickup_item : MonoBehaviour
     void Start()
     {
         pickupHand = GameObject.Find("pickupHand");
+
     }
 
     //---------- Pickup action --------------------
@@ -43,6 +44,14 @@ public class pickup_item : MonoBehaviour
             
             pickedUpItem = hit.collider.gameObject;
             canPickup = false;
+            if (pickedUpItem.CompareTag("Cleaning"))
+            {
+                EventManager.current.PickedUpCleaningItem();
+            }
+            else if (pickedUpItem.CompareTag("Roomservic"))
+            {
+                EventManager.current.PickedUpRoomservicItem();
+            }
             return true;
         }
         return false;
@@ -64,6 +73,9 @@ public class pickup_item : MonoBehaviour
             pickedUpItem.GetComponent<Rigidbody>().useGravity = true;
             pickedUpItem = null;
             canPickup = true;
+            EventManager.current.DroppedItem();
+            
+        
     }
 
     //---------- Update ---------------------------
@@ -71,6 +83,7 @@ public class pickup_item : MonoBehaviour
     void FixedUpdate() {
         if(pickedUpItem != null){
             ChangePosition(pickedUpItem);
+            
         }
     }
 

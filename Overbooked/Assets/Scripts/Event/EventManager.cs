@@ -30,4 +30,32 @@ public class EventManager : MonoBehaviour
         }
     }
 
+    public event Action pickedUpCleaningItem;
+    public void PickedUpCleaningItem()
+    {
+        if(pickedUpCleaningItem != null)
+        {
+            pickedUpCleaningItem();
+        }
+    }
+    public event Action pickedUpRoomservicItem;
+    public void PickedUpRoomservicItem()
+    {
+        if (pickedUpRoomservicItem != null)
+        {
+            pickedUpRoomservicItem();
+        }
+    }
+
+    public event Action droppedItem;
+    public void DroppedItem()
+    {
+        if (droppedItem != null)
+        {
+            droppedItem();
+        }
+    }
+
+
+
 }

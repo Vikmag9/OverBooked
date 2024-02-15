@@ -15,5 +15,11 @@ MonoBehaviour:
   name: Phone
   description: Answer the phone
   icon: {fileID: 21300000, guid: efcf12514f30ed243b5a1fb0d13663b7, type: 3}
-  type: 1
-  isActive: 0
+  type:
+    requiredAmount: 0
+    currentAmount: 0
+    goalType: 1
+  isActive: 1
+  roomId: 2
+  timer: 930
+  requirements: 0
