@@ -51,9 +51,7 @@ public class QuestGiver : MonoBehaviour
             spawnQuestActive = true;
             StartCoroutine(SetQuestActive(2f));
             gm.setGold(gold);
-            
-            
-            
+
         }
         
     }
@@ -90,11 +88,9 @@ public class QuestGiver : MonoBehaviour
         {
          
             yield return new WaitForSeconds(waitTime);
-            Debug.Log("hej");
             SpawnQuest();
             spawnQuestActive = false;
             
-
         }
         
     }
@@ -106,7 +102,6 @@ public class QuestGiver : MonoBehaviour
         {
             
             perform += 1;
-            questWindow.SetSliderValue(perform);
             if (perform >= 3)
             {
                 DeactivateQuest(10);
@@ -119,6 +114,7 @@ public class QuestGiver : MonoBehaviour
     {
         quest.timer -= 1f;
         questWindow.SetSliderValue(quest.timer);
+
         if(quest.timer <= 0)
         {
             DeactivateQuest(-10);

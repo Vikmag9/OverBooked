@@ -20,7 +20,6 @@ public class RoomTrigger : MonoBehaviour
         questButton = controller.Player.Quest;
         questButton.Enable();
 
-
     }
     private void OnDisable()
     {
@@ -35,7 +34,6 @@ public class RoomTrigger : MonoBehaviour
             questButton.performed += pressedButton;
         }
         
-
     }
 
     private void OnTriggerExit(Collider other)
