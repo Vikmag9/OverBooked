@@ -7,9 +7,8 @@ public class RoomTrigger : MonoBehaviour
 {
     public PlayerController controller;
     private InputAction questButton;
-    public GameManager gm;
-    public QuestGiver qg;
     private bool inCollider;
+    public int id;
 
     private void Awake()
     {
@@ -28,19 +27,10 @@ public class RoomTrigger : MonoBehaviour
         questButton.Disable();
     }
 
-    void Update()
-    {
-
-        if (inCollider)
-        {
-            questButton.performed += pressedButton;
-        }
-    }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            inCollider = true;
             questButton.Enable();
             questButton.performed += pressedButton;
         }
@@ -52,12 +42,12 @@ public class RoomTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            inCollider = false;
             questButton.Disable();
+            EventManager.current.RoomTriggerExit(id);
         }
 
     }
 
-    private void pressedButton(InputAction.CallbackContext contex) { qg.PerformQuest(); }
+    private void pressedButton(InputAction.CallbackContext contex) { EventManager.current.RoomTriggerEnter(id); }
 
 }

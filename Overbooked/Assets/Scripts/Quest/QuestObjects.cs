@@ -14,4 +14,5 @@ public class QuestObjects : ScriptableObject
     public QuestGoal type;
 
     public bool isActive;
+    public int roomId;
 }

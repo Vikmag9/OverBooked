@@ -17,12 +17,16 @@ public class QuestGiver : MonoBehaviour
 
     public GameManager gm;
 
+    public int id;
+
 
 
     private void Start()
     {
-        
+      
         StartCoroutine(SetQuestActive(2f));
+        EventManager.current.onRoomEnter += PerformQuest;
+        
     }
     private void Update()
     {
@@ -42,8 +46,8 @@ public class QuestGiver : MonoBehaviour
             spawnQuestActive = true;
             StartCoroutine(SetQuestActive(2f));
             gm.setGold(10);
-            perform = 0;
-            questWindow.SetSliderValue(perform);
+            
+            
             
         }
         
@@ -62,9 +66,13 @@ public class QuestGiver : MonoBehaviour
 
     private void SpawnQuest()
     {
+
         quest = getRandomQuest();
         room = getRandomRoom();
+        perform = 0;
+        questWindow.SetSliderValue(perform);
         quest.isActive = true;
+        quest.roomId = room.GetComponent<RoomTrigger>().id;
         questWindow.OpenQuestWindow(quest, room.transform.position);
 
 
@@ -85,14 +93,20 @@ public class QuestGiver : MonoBehaviour
         
     }
 
-    public void PerformQuest()
+    public void PerformQuest(int id)
     {
-        perform += 1;
-        questWindow.SetSliderValue(perform);
-        if(perform >= 3)
+        this.id = id;
+        if (id == this.id && id == quest.roomId)
         {
-            DeactivateQuest();
+            
+            perform += 1;
+            questWindow.SetSliderValue(perform);
+            if (perform >= 3)
+            {
+                DeactivateQuest();
+            }
         }
+        
     }
 
 }
