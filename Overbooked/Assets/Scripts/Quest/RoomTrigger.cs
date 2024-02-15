@@ -33,7 +33,7 @@ public class RoomTrigger : MonoBehaviour
 
         if (inCollider)
         {
-            //questButton.performed += pressedButton;
+            questButton.performed += pressedButton;
         }
     }
     private void OnTriggerEnter(Collider other)
