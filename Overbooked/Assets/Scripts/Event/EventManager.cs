@@ -56,6 +56,15 @@ public class EventManager : MonoBehaviour
         }
     }
 
+    public event Action littleTimeLeft;
+    public void SpeedUpGame()
+    {
+        if(littleTimeLeft != null)
+        {
+            littleTimeLeft();
+        }
+    }
+
 
 
 }

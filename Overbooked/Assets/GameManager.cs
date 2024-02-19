@@ -7,7 +7,8 @@ using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
-    private float timeRemaining = 300;
+    private float timeRemaining = 180;
+    private float speedUpTime = 60;
     private bool timerIsRunning = false;
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI goldText;
@@ -49,6 +50,11 @@ public class GameManager : MonoBehaviour
                 timerIsRunning = false;
             }
             DisplayTime(timeRemaining);
+
+            if(timeRemaining <= speedUpTime)
+            {
+                EventManager.current.SpeedUpGame();
+            }
         }
     }
 
