@@ -34,12 +34,15 @@ public class ElevatorCall : MonoBehaviour
     {
         callElevator.Enable();
         callElevator.performed += context => em.SetCalledElevator(true);
-        player = other.gameObject;
+        if (other.CompareTag("Player"))
+        {
+            player = other.gameObject;
+        }
         
     }
     private void OnTriggerExit(Collider other)
     {
-        //player = null;
+        player = null;
         callElevator.Disable();
     }
 

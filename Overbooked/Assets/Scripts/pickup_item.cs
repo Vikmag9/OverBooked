@@ -10,11 +10,12 @@ public class pickup_item : MonoBehaviour
     Ray frontRay;
     Ray leftRay;
     Ray rightRay;
+    Ray backRay;
 
     bool frontRayCast;
     bool leftRayCast;
     bool rightRayCast;
-    float maxDistance = 20f;
+    float maxDistance = 2f;
     public LayerMask layerMask;
 
     
@@ -39,7 +40,7 @@ public class pickup_item : MonoBehaviour
     {
 
         RaycastHit hit;
-        if (canPickup && (Physics.Raycast(frontRay, out hit, maxDistance, layerMask) || Physics.Raycast(leftRay, out hit, maxDistance, layerMask) || Physics.Raycast(rightRay, out hit, maxDistance, layerMask)))
+        if (canPickup && (Physics.Raycast(frontRay, out hit, maxDistance, layerMask) || Physics.Raycast(leftRay, out hit, maxDistance, layerMask) || Physics.Raycast(rightRay, out hit, maxDistance, layerMask) || Physics.Raycast(backRay, out hit, maxDistance, layerMask)))
         {
             
             pickedUpItem = hit.collider.gameObject;
@@ -93,8 +94,10 @@ public class pickup_item : MonoBehaviour
     {
         //Debug.Log(transform.forward);
         frontRay = new Ray(transform.position, transform.forward);
+        backRay = new Ray(transform.position, -transform.forward);
         leftRay = new Ray(transform.position, -transform.right);
         rightRay = new Ray(transform.position, transform.right);
+
         //CheckForItem();
     }
 

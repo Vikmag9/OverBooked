@@ -17,6 +17,11 @@ public class PlayerManager : MonoBehaviour
         this.currentLevel = newLevel;
     }
 
-    
+    private void Start()
+    {
+        Physics.IgnoreLayerCollision(7, 8);
+    }
+
+
 
 }
