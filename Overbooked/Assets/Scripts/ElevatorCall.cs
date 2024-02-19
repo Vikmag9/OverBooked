@@ -15,8 +15,7 @@ public class ElevatorCall : MonoBehaviour
     private void Awake()
     {
         controller = new ElevetorInputMap();
-        
-
+       
     }
 
     private void OnEnable()
@@ -33,6 +32,7 @@ public class ElevatorCall : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        callElevator.Enable();
         callElevator.performed += context => em.SetCalledElevator(true);
         player = other.gameObject;
         
@@ -40,6 +40,7 @@ public class ElevatorCall : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         //player = null;
+        callElevator.Disable();
     }
 
 
@@ -54,7 +55,7 @@ public class ElevatorCall : MonoBehaviour
 
     public void MovePlayerOutOfElevator(int currentLevel)
     {
-        player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z - 3f);
+        player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z - 4f);
         player.GetComponent<PlayerManager>().setPlayerCurrentLevel(currentLevel);
 
 

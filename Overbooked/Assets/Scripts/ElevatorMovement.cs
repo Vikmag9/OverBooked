@@ -48,7 +48,7 @@ public class ElevatorMovement : MonoBehaviour
     {
         currentLevel = levelList[0].getLevelNumber();
         beforeLevel = currentLevel + 1;
-        ec = new ElevatorCall();
+        //ec = new ElevatorCall();
        
     }
 
@@ -77,7 +77,7 @@ public class ElevatorMovement : MonoBehaviour
             moveUpAFloor = false;
             //currentLevel += 1;
             transform.position = new Vector3(transform.position.x, levelList[currentLevel].getLevelPos().position.y, transform.position.z);
-            //ec.MovePlayerOutOfElevator(currentLevel);
+            ec.MovePlayerOutOfElevator(currentLevel);
             
         }
 
@@ -95,8 +95,8 @@ public class ElevatorMovement : MonoBehaviour
         {
             moving = false;
             moveDownAFloor = false;
-            transform.position = new Vector3(transform.position.x, levelList[currentLevel].getLevelPos().position.y, transform.position.y);
-            //ec.MovePlayerOutOfElevator(currentLevel);
+            transform.position = new Vector3(transform.position.x, levelList[currentLevel].getLevelPos().position.y, transform.position.z);
+            ec.MovePlayerOutOfElevator(currentLevel);
         }
 
     }
@@ -158,7 +158,7 @@ public class ElevatorMovement : MonoBehaviour
                 moving = false;
                 calledElevator = false;
                 moveUpAFloor = true;
-                //ec.MovePlayerInElevator(currentLevel, new Vector3(transform.position.x, transform.position.y, transform.position.z));
+                ec.MovePlayerInElevator(currentLevel, new Vector3(transform.position.x, transform.position.y, transform.position.z));
                 beforeLevel = currentLevel;
                 currentLevel = beforeLevel + 1;
                 
@@ -177,7 +177,7 @@ public class ElevatorMovement : MonoBehaviour
                 moving = false;
                 calledElevator = false;
                 moveDownAFloor = true;
-                //ec.MovePlayerInElevator(currentLevel, new Vector3(transform.position.x, transform.position.y, transform.position.z));
+                ec.MovePlayerInElevator(currentLevel, new Vector3(transform.position.x, transform.position.y, transform.position.z));
                 currentLevel = beforeLevel;
                 beforeLevel = currentLevel + 1;
                 
