@@ -23,7 +23,8 @@ public class QuestGiver : MonoBehaviour
     private bool clean;
     private bool roomservic;
 
-    public AnimationContr ani;
+    //public AnimationContr ani;
+    public Animator ani;
 
 
 

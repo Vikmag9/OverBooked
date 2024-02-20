@@ -17,7 +17,7 @@ public class guestEmotes : MonoBehaviour
         
     }
 
-    public quest_active_emote()
+    public void quest_active_emote()
     {
         ani.SetFloat("quest_active", 1f);
     }
