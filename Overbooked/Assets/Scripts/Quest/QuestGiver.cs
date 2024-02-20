@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
@@ -23,11 +23,14 @@ public class QuestGiver : MonoBehaviour
     private bool clean;
     private bool roomservic;
 
+    public AnimationContr ani;
+
 
 
     private void Start()
     {
-      
+        //ani = this.GetComponent<Animator>();
+
         StartCoroutine(SetQuestActive(2f));
         EventManager.current.onRoomEnter += PerformQuest;
         EventManager.current.pickedUpCleaningItem += HoldingCleaningItem;
@@ -90,6 +93,7 @@ public class QuestGiver : MonoBehaviour
         quest.timer = questTimer;
         quest.roomId = room.GetComponent<RoomTrigger>().id;
         questWindow.OpenQuestWindow(quest, room.transform.position);
+        ani.SetFloat("quest_activate", 1f);
 
 
     }

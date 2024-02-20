@@ -31,6 +31,8 @@ public class DisplayQuest : MonoBehaviour
         nameText.text = quest.name;
         descriptionText.text = quest.description;
         iconImage.sprite = quest.icon;
+
+        
     }
 
     public void CloseQuestWindow() { questWindow.SetActive(false); }
