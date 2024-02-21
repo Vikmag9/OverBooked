@@ -65,6 +65,15 @@ public class EventManager : MonoBehaviour
         }
     }
 
+    public event Action playerLoseLife;
+    public void LoseLife()
+    {
+        if(playerLoseLife != null)
+        {
+            playerLoseLife();
+        }
+    }
+
 
 
 }

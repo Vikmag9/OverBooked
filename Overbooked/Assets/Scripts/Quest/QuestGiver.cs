@@ -34,6 +34,7 @@ public class QuestGiver : MonoBehaviour
         EventManager.current.pickedUpRoomservicItem += HoldingRoomservicItem;
         EventManager.current.droppedItem += DroopingItem;
         
+        
     }
 
     private void Current_pickedUpCleaningItem()
@@ -129,7 +130,11 @@ public class QuestGiver : MonoBehaviour
 
         if(quest.timer <= 0)
         {
-            DeactivateQuest(-10);
+            DeactivateQuest(0);
+            //EventManager.current.LoseLife();
+            EventManager.current.LoseLife();
+            quest.timer = 10000000000;
+
         }
     }
 

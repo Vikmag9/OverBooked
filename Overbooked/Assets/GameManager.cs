@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,12 +15,15 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI goldText;
     //public Slider timerSlider;
     private int gold = 0;
+    public List<Image> heartImages;
+    private int lifesLeft = 3;
     // Start is called before the first frame update
     void Start()
     {
         Singelton();
         timerIsRunning = true;
         DisplayGold();
+        EventManager.current.playerLoseLife += DisableHeart;
     }
 
     private GameManager Singelton()
@@ -76,4 +80,15 @@ public class GameManager : MonoBehaviour
     {
         goldText.text = gold.ToString();
     }
+
+    private void DisableHeart()
+    {
+        if(lifesLeft >= 0)
+        {
+            Destroy(heartImages[lifesLeft-1].gameObject);
+            lifesLeft -= 1;
+        }
+        
+    }
+
 }
