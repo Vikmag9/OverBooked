@@ -6258,7 +6258,7 @@ GameObject:
   - component: {fileID: 1175905296}
   - component: {fileID: 1175905295}
   - component: {fileID: 1175905294}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: hisswall (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9555,7 +9555,7 @@ GameObject:
   - component: {fileID: 1799159030}
   - component: {fileID: 1799159029}
   - component: {fileID: 1799159028}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: hisswall (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15128,7 +15128,7 @@ GameObject:
   - component: {fileID: 6362458191677317474}
   - component: {fileID: 5211765900584304252}
   - component: {fileID: 969108803027242800}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: HOTEL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
