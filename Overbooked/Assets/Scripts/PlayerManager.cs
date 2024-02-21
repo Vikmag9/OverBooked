@@ -31,7 +31,10 @@ public class PlayerManager : MonoBehaviour
     }
     private void Update()
     {
-        
+        if(this.transform.position.z <= -2)
+        {
+            this.transform.position = new Vector3(transform.position.x, transform.position.y, -1.7f);
+        }
         
     }
 
