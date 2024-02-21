@@ -23,14 +23,11 @@ public class QuestGiver : MonoBehaviour
     private bool clean;
     private bool roomservic;
 
-    //public AnimationContr ani;
-    public Animator ani;
-
+    private int currentRoomID;
 
 
     private void Start()
     {
-        //ani = this.GetComponent<Animator>();
 
         StartCoroutine(SetQuestActive(2f));
         EventManager.current.onRoomEnter += PerformQuest;
@@ -68,6 +65,8 @@ public class QuestGiver : MonoBehaviour
             StartCoroutine(SetQuestActive(2f));
             gm.setGold(gold);
 
+            EventManager.current.QuestDeactive();
+
         }
         
     }
@@ -93,10 +92,11 @@ public class QuestGiver : MonoBehaviour
         quest.isActive = true;
         quest.timer = questTimer;
         quest.roomId = room.GetComponent<RoomTrigger>().id;
+        this.currentRoomID = room.GetComponent<RoomTrigger>().id;
         questWindow.OpenQuestWindow(quest, room.transform.position);
-        ani.SetFloat("quest_activate", 1f);
 
-
+        animation_manager_guest_1.setCurrentRoomID(currentRoomID);
+        EventManager.current.QuestActive(room.GetComponent<RoomTrigger>().id);
     }
 
     public IEnumerator SetQuestActive(float waitTime)
