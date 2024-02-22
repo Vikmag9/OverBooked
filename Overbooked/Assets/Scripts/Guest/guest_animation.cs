@@ -28,17 +28,13 @@ public class animation_manager_guest_1 : MonoBehaviour
     public void quest_active_wave()
     {
         if(guestID == questGiver.getRoomID()){
-        ani.SetBool("activate_quest", true);
+        roomID = questGiver.getRoomID();
+        ani.SetBool("quest_active", true);
         }
     }
 
     public void quest_deactive_emote()
     {
-        ani.SetBool("activate_quest", false);
-    }
-
-    public void setCurrentRoomID(int id)
-    {
-        roomID = id;
+        ani.SetBool("quest_active", false);
     }
 }
