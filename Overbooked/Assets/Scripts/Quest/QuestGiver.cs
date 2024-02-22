@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
@@ -23,13 +23,15 @@ public class QuestGiver : MonoBehaviour
     private bool clean;
     private bool roomservic;
 
+    private int currentRoomID;
     private AudioSource completeQuestSound;
 
 
+    public animation_manager_guest_1 guest_1;
 
     private void Start()
     {
-      
+
         StartCoroutine(SetQuestActive(2f));
         completeQuestSound = GameObject.Find("CompleteQuestSound").GetComponent<AudioSource>();
         EventManager.current.onRoomEnter += PerformQuest;
@@ -68,6 +70,8 @@ public class QuestGiver : MonoBehaviour
             StartCoroutine(SetQuestActive(2f));
             gm.setGold(gold);
 
+            EventManager.current.QuestDeactive();
+
         }
         
     }
@@ -93,9 +97,10 @@ public class QuestGiver : MonoBehaviour
         quest.isActive = true;
         quest.timer = questTimer;
         quest.roomId = room.GetComponent<RoomTrigger>().id;
+        this.currentRoomID = room.GetComponent<RoomTrigger>().id;
         questWindow.OpenQuestWindow(quest, room.transform.position);
-
-
+        
+        EventManager.current.QuestActive();
     }
 
     public IEnumerator SetQuestActive(float waitTime)
@@ -170,5 +175,10 @@ public class QuestGiver : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public int getRoomID()
+    {
+        return currentRoomID;
     }
 }
