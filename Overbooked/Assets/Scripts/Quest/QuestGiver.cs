@@ -25,6 +25,8 @@ public class QuestGiver : MonoBehaviour
 
     private AudioSource completeQuestSound;
 
+    private int currentRoomID;
+
 
 
     private void Start()
