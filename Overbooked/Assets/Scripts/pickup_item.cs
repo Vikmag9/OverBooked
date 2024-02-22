@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.HID;
 
 public class pickup_item : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class pickup_item : MonoBehaviour
     bool rightRayCast;
     float maxDistance = 2f;
     public LayerMask layerMask;
+    bool holding = false;
 
     
     private PlayerController playerController;
@@ -65,6 +67,7 @@ public class pickup_item : MonoBehaviour
             objectHit.transform.position = pickupHand.transform.position;
             objectHit.GetComponent<Collider>().enabled = false;
             objectHit.GetComponent<Rigidbody>().useGravity = false;
+            holding = true;
     }
 
     void DropItem()
@@ -74,7 +77,9 @@ public class pickup_item : MonoBehaviour
             pickedUpItem.GetComponent<Rigidbody>().useGravity = true;
             pickedUpItem = null;
             canPickup = true;
+            holding = false;
             EventManager.current.DroppedItem();
+
             
         
     }
@@ -108,23 +113,41 @@ public class pickup_item : MonoBehaviour
     private void OnEnable()
     {
         pickup = playerController.Player.Pickup;
-
         pickup.Enable();
-
-
-        pickup.performed += checkKeypress;
 
     }
 
     void checkKeypress(InputAction.CallbackContext context){
-        if(canPickup){
-            CheckForItem();
+        if(!holding){
+            //CheckForItem();
         }else{
             DropItem();
         }
     }
 
     private void OnDisable()
+    {
+        pickup.Disable();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        pickup.Enable();
+        pickup.performed += checkKeypress;
+        if()
+        pickedUpItem = other.gameObject;
+        canPickup = false;
+        if (pickedUpItem.CompareTag("Cleaning"))
+        {
+            EventManager.current.PickedUpCleaningItem();
+        }
+        else if (pickedUpItem.CompareTag("Roomservic"))
+        {
+            EventManager.current.PickedUpRoomservicItem();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
     {
         pickup.Disable();
     }
