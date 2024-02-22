@@ -65,23 +65,7 @@ public class EventManager : MonoBehaviour
         }
     }
 
-    public event Action questActive;
-    public void QuestActive()
-    {
-        if(questActive != null)
-        {
-            questActive();
-        }
-    }
-
-    public event Action questDeactive;
-    public void QuestDeactive()
-    {
-        if(questDeactive != null)
-        {
-            questDeactive();
-        }
-    }    public event Action playerLoseLife;
+    public event Action playerLoseLife;
     public void LoseLife()
     {
         if(playerLoseLife != null)
