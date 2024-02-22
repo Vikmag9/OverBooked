@@ -23,16 +23,20 @@ public class QuestGiver : MonoBehaviour
     private bool clean;
     private bool roomservic;
 
+    private AudioSource completeQuestSound;
+
 
 
     private void Start()
     {
       
         StartCoroutine(SetQuestActive(2f));
+        completeQuestSound = GameObject.Find("CompleteQuestSound").GetComponent<AudioSource>();
         EventManager.current.onRoomEnter += PerformQuest;
         EventManager.current.pickedUpCleaningItem += HoldingCleaningItem;
         EventManager.current.pickedUpRoomservicItem += HoldingRoomservicItem;
         EventManager.current.droppedItem += DroopingItem;
+        
         
     }
 
@@ -117,6 +121,8 @@ public class QuestGiver : MonoBehaviour
             if (perform >= 3)
             {
                 DeactivateQuest(10);
+                completeQuestSound.Play();
+                
             }
         }
         
@@ -129,7 +135,11 @@ public class QuestGiver : MonoBehaviour
 
         if(quest.timer <= 0)
         {
-            DeactivateQuest(-10);
+            DeactivateQuest(0);
+            //EventManager.current.LoseLife();
+            EventManager.current.LoseLife();
+            quest.timer = 10000000000;
+
         }
     }
 
