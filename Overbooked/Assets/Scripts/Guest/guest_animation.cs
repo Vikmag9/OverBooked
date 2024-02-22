@@ -7,7 +7,7 @@ public class animation_manager_guest_1 : MonoBehaviour
 {
     private Animator ani;
 
-    public int guestID = 1;
+    public int guestID;
 
     public int roomID;
 
