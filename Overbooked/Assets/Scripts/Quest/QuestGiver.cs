@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
@@ -94,6 +94,9 @@ public class QuestGiver : MonoBehaviour
         quest.timer = questTimer;
         quest.roomId = room.GetComponent<RoomTrigger>().id;
         questWindow.OpenQuestWindow(quest, room.transform.position);
+        
+        this.currentRoomID = room.GetComponent<RoomTrigger>().id;
+        EventManager.current.QuestActive();
 
 
     }
@@ -170,5 +173,10 @@ public class QuestGiver : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public int getRoomID()
+    {
+        return currentRoomID;
     }
 }
