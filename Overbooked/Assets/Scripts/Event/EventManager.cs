@@ -65,12 +65,12 @@ public class EventManager : MonoBehaviour
         }
     }
 
-    public event Action<int> questActive;
-    public void QuestActive(int id)
+    public event Action questActive;
+    public void QuestActive()
     {
         if(questActive != null)
         {
-            questActive(id);
+            questActive();
         }
     }
 

@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
 public class animation_manager_guest_1 : MonoBehaviour
 {
     private Animator ani;
 
-    public int guestID;
+    public int guestID = 1;
+
+    public int roomID;
+
+    public QuestGiver questGiver;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +27,7 @@ public class animation_manager_guest_1 : MonoBehaviour
 
     public void quest_active_wave()
     {
-        if(guestID = this.id){
+        if(guestID == questGiver.getRoomID()){
         ani.SetBool("activate_quest", true);
         }
     }
@@ -36,6 +39,6 @@ public class animation_manager_guest_1 : MonoBehaviour
 
     public void setCurrentRoomID(int id)
     {
-        guestID = id;
+        roomID = id;
     }
 }

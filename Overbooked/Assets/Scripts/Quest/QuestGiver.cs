@@ -25,6 +25,7 @@ public class QuestGiver : MonoBehaviour
 
     private int currentRoomID;
 
+    public animation_manager_guest_1 guest_1;
 
     private void Start()
     {
@@ -94,9 +95,8 @@ public class QuestGiver : MonoBehaviour
         quest.roomId = room.GetComponent<RoomTrigger>().id;
         this.currentRoomID = room.GetComponent<RoomTrigger>().id;
         questWindow.OpenQuestWindow(quest, room.transform.position);
-
-        animation_manager_guest_1.setCurrentRoomID(currentRoomID);
-        EventManager.current.QuestActive(room.GetComponent<RoomTrigger>().id);
+        
+        EventManager.current.QuestActive();
     }
 
     public IEnumerator SetQuestActive(float waitTime)
@@ -165,5 +165,10 @@ public class QuestGiver : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public int getRoomID()
+    {
+        return currentRoomID;
     }
 }
