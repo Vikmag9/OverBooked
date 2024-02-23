@@ -78,6 +78,7 @@ public class pickup_item : MonoBehaviour
             pickedUpItem = null;
             canPickup = true;
             holding = false;
+            
             EventManager.current.DroppedItem();
 
             
@@ -87,7 +88,7 @@ public class pickup_item : MonoBehaviour
     //---------- Update ---------------------------
 
     void FixedUpdate() {
-        if(pickedUpItem != null){
+        if(pickedUpItem != null && holding){
             ChangePosition(pickedUpItem);
             
         }
@@ -120,6 +121,7 @@ public class pickup_item : MonoBehaviour
     void checkKeypress(InputAction.CallbackContext context){
         if(!holding){
             //CheckForItem();
+            PickUpItem();
         }else{
             DropItem();
         }
@@ -130,25 +132,37 @@ public class pickup_item : MonoBehaviour
         pickup.Disable();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
+
         pickup.Enable();
-        pickup.performed += checkKeypress;
-        if()
-        pickedUpItem = other.gameObject;
-        canPickup = false;
-        if (pickedUpItem.CompareTag("Cleaning"))
+        if (canPickup && other.gameObject.layer == LayerMask.NameToLayer("Pickupable"))
         {
-            EventManager.current.PickedUpCleaningItem();
+
+            pickup.performed += checkKeypress;
+            pickedUpItem = other.gameObject;
         }
-        else if (pickedUpItem.CompareTag("Roomservic"))
-        {
-            EventManager.current.PickedUpRoomservicItem();
-        }
+    }
+
+    private void PickUpItem()
+    {
+        
+            canPickup = false;
+            holding = true;
+            if (pickedUpItem.CompareTag("Cleaning"))
+            {
+                EventManager.current.PickedUpCleaningItem();
+            }
+            else if (pickedUpItem.CompareTag("Roomservic"))
+            {
+                EventManager.current.PickedUpRoomservicItem();
+            }
+        
     }
 
     private void OnTriggerExit(Collider other)
     {
         pickup.Disable();
+        
     }
 }

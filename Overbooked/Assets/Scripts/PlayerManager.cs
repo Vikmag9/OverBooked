@@ -22,7 +22,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
-        Physics.IgnoreLayerCollision(7, 8);
+        //Physics.IgnoreLayerCollision(7, 8);
         
             EventManager.current.playerLoseLife += LoseLife;
             
