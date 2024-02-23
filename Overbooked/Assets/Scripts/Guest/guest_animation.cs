@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class guest_animation : MonoBehaviour
+public class animation_manager_guest_1 : MonoBehaviour
 {
     private Animator ani;
 
