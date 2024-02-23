@@ -127,7 +127,7 @@ public class QuestGiver : MonoBehaviour
             {
                 DeactivateQuest(10);
                 completeQuestSound.Play();
-                
+                EventManager.current.QuestDeactive();
             }
         }
         
