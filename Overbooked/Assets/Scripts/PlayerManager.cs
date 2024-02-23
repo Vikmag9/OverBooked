@@ -23,8 +23,13 @@ public class PlayerManager : MonoBehaviour
     private void Start()
     {
         //Physics.IgnoreLayerCollision(7, 8);
+        GameObject[] goArray = FindGameObjectsWithLayer(7);
+        for(int i = 0;  i < goArray.Length; i++)
+        {
+            Physics.IgnoreCollision(goArray[i].GetComponent<Collider>(), GetComponent<Collider>());
+        }
         
-            EventManager.current.playerLoseLife += LoseLife;
+        EventManager.current.playerLoseLife += LoseLife;
             
         
         
@@ -49,6 +54,27 @@ public class PlayerManager : MonoBehaviour
         
     }
 
+    GameObject[] FindGameObjectsWithLayer(int layer)
+    {
+        GameObject[] goArray = GameObject.FindObjectsOfType<GameObject>();
+        System.Collections.Generic.List<GameObject> goList = new System.Collections.Generic.List<GameObject>();
 
+        for (int i = 0; i < goArray.Length; i++)
+        {
+            if (goArray[i].layer == layer)
+            {
+                goList.Add(goArray[i]);
+            }
+        }
 
+        if (goList.Count == 0)
+        {
+            return null;
+        }
+
+        return goList.ToArray();
+    }
 }
+
+
+
