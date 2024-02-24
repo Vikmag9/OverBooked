@@ -4,6 +4,7 @@ using System.Collections;
 
 public class SceneController : MonoBehaviour
 {
+    public int sceneID;
     public void StartGame()
     {
         StartCoroutine(LoadGameSequence());
@@ -18,6 +19,11 @@ public class SceneController : MonoBehaviour
         yield return new WaitForSeconds(3f);
 
         // Ladda scen 3 (spelet)
-        SceneManager.LoadScene("Scenes/original");
+        MoveToScene(sceneID);
+    }
+
+    public void MoveToScene(int sceneID)
+    {
+        SceneManager.LoadScene(sceneID);
     }
 }
