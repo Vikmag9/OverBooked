@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/startpage.unity
     guid: 6fdd8f54aa2944d57bd53e27148d35ac
   - enabled: 1
+    path: Assets/Scenes/turtorial.unity
+    guid: b5759bc0f50644342bfc7d0fd94a28fb
+  - enabled: 1
     path: Assets/Scenes/original.unity
     guid: cfbe51cc59f704b7192321324ab9a1a6
   m_configObjects: {}

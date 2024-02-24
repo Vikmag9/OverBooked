@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Cleaning
   - Roomservic
+  - LoadingSlider
+  - SliderFill
+  - LoadingText
   layers:
   - Default
   - TransparentFX
