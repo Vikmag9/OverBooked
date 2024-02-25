@@ -28,6 +28,7 @@ public class pickup_item : MonoBehaviour
     private GameObject pickupHand;
 
     private GameObject pickedUpItem;
+    private bool inRangeOfItem = false;
 
     // Start is called before the first frame update
     void Start()
@@ -67,7 +68,7 @@ public class pickup_item : MonoBehaviour
             objectHit.transform.position = pickupHand.transform.position;
             objectHit.GetComponent<Collider>().enabled = false;
             objectHit.GetComponent<Rigidbody>().useGravity = false;
-            holding = true;
+            //holding = true;
     }
 
     void DropItem()
@@ -104,6 +105,12 @@ public class pickup_item : MonoBehaviour
         leftRay = new Ray(transform.position, -transform.right);
         rightRay = new Ray(transform.position, transform.right);
 
+        if (canPickup && inRangeOfItem)
+        {
+            pickup.performed += checkKeypress;
+            
+        }
+
         //CheckForItem();
     }
 
@@ -122,7 +129,9 @@ public class pickup_item : MonoBehaviour
         if(!holding){
             //CheckForItem();
             PickUpItem();
-        }else{
+            
+        }
+        else{
             DropItem();
         }
     }
@@ -132,22 +141,22 @@ public class pickup_item : MonoBehaviour
         pickup.Disable();
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-
         pickup.Enable();
-        if (canPickup && other.gameObject.layer == LayerMask.NameToLayer("Pickupable"))
+        if(other.gameObject.layer == LayerMask.NameToLayer("Pickupable"))
         {
-
-            pickup.performed += checkKeypress;
             pickedUpItem = other.gameObject;
+            inRangeOfItem = true;
         }
+        
+
     }
 
     private void PickUpItem()
     {
-        
-            canPickup = false;
+        //pickup.Enable();
+            //canPickup = false;
             holding = true;
             if (pickedUpItem.CompareTag("Cleaning"))
             {
@@ -163,6 +172,8 @@ public class pickup_item : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         pickup.Disable();
+        pickedUpItem = null;
+        inRangeOfItem = false;
         
     }
 }
