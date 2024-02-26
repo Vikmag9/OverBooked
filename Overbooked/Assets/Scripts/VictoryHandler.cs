@@ -10,6 +10,10 @@ public class VictoryHandler : MonoBehaviour
     private int starCount;
     public Sprite yellowStarSprite;
     public Sprite grayStarSprite;
+    public float initialDelay = 2f;
+    public float fillDelay = 1f;
+    public AudioClip fillSound; // Ljudklipp f?r att spela n?r stj?rnorna fylls
+    private AudioSource audioSource;
 
     void Start()
     {
@@ -39,15 +43,37 @@ public class VictoryHandler : MonoBehaviour
         foreach (var image in starImages)
         {
             image.sprite = grayStarSprite;
-            image.gameObject.SetActive(true);
+            image.fillAmount = 0f;
+            //image.gameObject.SetActive(true);
         }
 
+        audioSource = gameObject.AddComponent<AudioSource>(); // L?gger till AudioSource-komponenten
+        audioSource.clip = fillSound;
 
-        for (int i = 0; i < starCount; i++)
-        {
-            starImages[i].sprite = yellowStarSprite;
-        }
-
+        StartCoroutine(FillStars());
         scoreText.text = "My score: " + finalScore.ToString() + "kr";
+
     }
+
+    IEnumerator FillStars()
+        {
+        yield return new WaitForSeconds(initialDelay);
+        for (int i = 0; i < starCount; i++)
+            {
+                starImages[i].sprite = yellowStarSprite;
+                if (fillSound != null && audioSource != null)
+                {
+                    audioSource.PlayOneShot(fillSound); // Spela ljudet n?r stj?rnan fylls
+                }
+                float elapsedTime = 0f;
+                while (elapsedTime < fillDelay)
+                {
+                    elapsedTime += Time.deltaTime;
+                    starImages[i].fillAmount = elapsedTime / fillDelay; // Uppdatera fyllningsgraden ?ver tiden
+                    yield return null;
+                }
+                starImages[i].fillAmount = 1f;
+        }
+     }
+
 }
