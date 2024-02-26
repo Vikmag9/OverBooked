@@ -54,6 +54,8 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Time has run out!");
                 timeRemaining = 0;
                 timerIsRunning = false;
+                PlayerPrefs.SetInt("VictoryScore", gold);
+                SceneManager.LoadScene("Scenes/VictoryPage");
             }
             DisplayTime(timeRemaining);
 
@@ -72,7 +74,6 @@ public class GameManager : MonoBehaviour
 
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
         //timerSlider.value = timeToDisplay;
-
 
     }
 
