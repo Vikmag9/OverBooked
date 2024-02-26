@@ -56,6 +56,8 @@ public class QuestGiver : MonoBehaviour
             if (quest.isActive == false)
             {
                 questWindow.CloseQuestWindow();
+                EventManager.current.QuestDeactive();
+
             }
         }
         
@@ -127,7 +129,7 @@ public class QuestGiver : MonoBehaviour
             {
                 DeactivateQuest(10);
                 completeQuestSound.Play();
-                EventManager.current.QuestDeactive();
+                //EventManager.current.QuestDeactive();
             }
         }
         
