@@ -29,7 +29,7 @@ public class DisplayQuest : MonoBehaviour
         questWindow.transform.position = new Vector3(roomPosition.x + 2.55f, roomPosition.y + 1, roomPosition.z - 5f);
         questWindow.SetActive(true);
         nameText.text = quest.name;
-        descriptionText.text = quest.description;
+        //descriptionText.text = quest.description;
         iconImage.sprite = quest.icon;
     }
 
