@@ -8,6 +8,8 @@ public class VictoryHandler : MonoBehaviour
     public Text scoreText;
     public List<Image> starImages;
     private int starCount;
+    public Sprite yellowStarSprite;
+    public Sprite grayStarSprite;
 
     void Start()
     {
@@ -34,16 +36,16 @@ public class VictoryHandler : MonoBehaviour
             starCount = 5;
         }
 
-        for (int i = 0; i < starImages.Count; i++)
+        foreach (var image in starImages)
         {
-            if (i < starCount)
-            {
-                starImages[i].gameObject.SetActive(true);
-            }
-            else
-            {
-                starImages[i].gameObject.SetActive(false);
-            }
+            image.sprite = grayStarSprite;
+            image.gameObject.SetActive(true);
+        }
+
+
+        for (int i = 0; i < starCount; i++)
+        {
+            starImages[i].sprite = yellowStarSprite;
         }
 
         scoreText.text = "My score: " + finalScore.ToString() + "kr";
