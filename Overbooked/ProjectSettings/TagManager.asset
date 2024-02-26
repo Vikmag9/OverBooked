@@ -9,6 +9,8 @@ TagManager:
   - LoadingSlider
   - SliderFill
   - LoadingText
+  - Kitchen
+  - KitchenUI
   layers:
   - Default
   - TransparentFX
