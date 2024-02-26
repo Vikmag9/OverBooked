@@ -123,12 +123,35 @@ public class QuestGiver : MonoBehaviour
         {
             
             perform += 1;
+
+            float remainingTimePercentage = quest.timer / questTimer;
+
+            // Kolla vilken belöningsnivå som ska tilldelas baserat på tidsåterstående
+            int reward;
+            if (remainingTimePercentage > 2f / 3f) // Över 2/3 av tiden kvar
+            {
+                reward = 10;
+            }
+            else if (remainingTimePercentage > 1f / 3f) // Mindre än 2/3 men mer än 1/3 av tiden kvar
+            {
+                reward = 5;
+            }
+            else // Mindre än 1/3 av tiden kvar
+            {
+                reward = 2;
+            }
+
+            // Uppdatera belöningen för questen
+            DeactivateQuest(reward);
+            /*
             if (perform >= 3)
             {
                 DeactivateQuest(10);
                 completeQuestSound.Play();
                 EventManager.current.QuestDeactive();
-            }
+            }*/
+            completeQuestSound.Play();
+            EventManager.current.QuestDeactive();
         }
         
     }
