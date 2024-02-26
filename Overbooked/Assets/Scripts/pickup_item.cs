@@ -3,59 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.HID;
 
 public class pickup_item : MonoBehaviour
 {
 
-    Ray frontRay;
-    Ray leftRay;
-    Ray rightRay;
-    Ray backRay;
-
-    bool frontRayCast;
-    bool leftRayCast;
-    bool rightRayCast;
-    float maxDistance = 2f;
     public LayerMask layerMask;
 
-    
+    bool holding = false;
+    private bool inRangeOfItem = false;
+    bool canPickup = true;
+
     private PlayerController playerController;
     private InputAction pickup;
 
-    bool canPickup = true;
     private GameObject pickupHand;
-
     private GameObject pickedUpItem;
+    
 
     // Start is called before the first frame update
     void Start()
     {
         pickupHand = GameObject.Find("pickupHand");
 
-    }
-
-    //---------- Pickup action --------------------
-
-    bool CheckForItem()
-    {
-
-        RaycastHit hit;
-        if (canPickup && (Physics.Raycast(frontRay, out hit, maxDistance, layerMask) || Physics.Raycast(leftRay, out hit, maxDistance, layerMask) || Physics.Raycast(rightRay, out hit, maxDistance, layerMask) || Physics.Raycast(backRay, out hit, maxDistance, layerMask)))
-        {
-            
-            pickedUpItem = hit.collider.gameObject;
-            canPickup = false;
-            if (pickedUpItem.CompareTag("Cleaning"))
-            {
-                EventManager.current.PickedUpCleaningItem();
-            }
-            else if (pickedUpItem.CompareTag("Roomservic"))
-            {
-                EventManager.current.PickedUpRoomservicItem();
-            }
-            return true;
-        }
-        return false;
     }
 
     //---------- Change position -------------------
@@ -65,16 +35,20 @@ public class pickup_item : MonoBehaviour
             objectHit.transform.position = pickupHand.transform.position;
             objectHit.GetComponent<Collider>().enabled = false;
             objectHit.GetComponent<Rigidbody>().useGravity = false;
+            
     }
 
     void DropItem()
     {
-            Debug.Log("drop");
+            
             pickedUpItem.GetComponent<Collider>().enabled = true;
             pickedUpItem.GetComponent<Rigidbody>().useGravity = true;
             pickedUpItem = null;
             canPickup = true;
+            holding = false;
+            
             EventManager.current.DroppedItem();
+
             
         
     }
@@ -82,7 +56,7 @@ public class pickup_item : MonoBehaviour
     //---------- Update ---------------------------
 
     void FixedUpdate() {
-        if(pickedUpItem != null){
+        if(pickedUpItem != null && holding){
             ChangePosition(pickedUpItem);
             
         }
@@ -92,13 +66,13 @@ public class pickup_item : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(transform.forward);
-        frontRay = new Ray(transform.position, transform.forward);
-        backRay = new Ray(transform.position, -transform.forward);
-        leftRay = new Ray(transform.position, -transform.right);
-        rightRay = new Ray(transform.position, transform.right);
 
-        //CheckForItem();
+        if (canPickup && inRangeOfItem)
+        {
+            pickup.performed += checkKeypress;
+            
+        }
+
     }
 
      private void Awake()
@@ -108,24 +82,64 @@ public class pickup_item : MonoBehaviour
     private void OnEnable()
     {
         pickup = playerController.Player.Pickup;
-
         pickup.Enable();
 
-
-        pickup.performed += checkKeypress;
-
-    }
-
-    void checkKeypress(InputAction.CallbackContext context){
-        if(canPickup){
-            CheckForItem();
-        }else{
-            DropItem();
-        }
     }
 
     private void OnDisable()
     {
         pickup.Disable();
+    }
+
+    void checkKeypress(InputAction.CallbackContext context){
+        if(!holding){
+            PickUpItem();
+        }
+        else{
+            DropItem();
+        }
+    }
+
+    
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Pickupable") && canPickup == true)
+        {
+            pickup.Enable();
+        
+            pickedUpItem = other.gameObject;
+            inRangeOfItem = true;
+        }
+        
+
+    }
+
+    private void PickUpItem()
+    {
+        
+            canPickup = false;
+            holding = true;
+            if (pickedUpItem.CompareTag("Cleaning"))
+            {
+                EventManager.current.PickedUpCleaningItem();
+            }
+            else if (pickedUpItem.CompareTag("Roomservic"))
+            {
+                EventManager.current.PickedUpRoomservicItem();
+            }
+        
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Pickupable") && canPickup == true)
+        {
+            pickup.Disable();
+            pickedUpItem = null;
+            inRangeOfItem = false;
+            holding = false;
+        }
+        
     }
 }
