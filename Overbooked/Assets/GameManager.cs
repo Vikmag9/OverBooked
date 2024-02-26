@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
     private int gold = 0;
     public List<Image> heartImages;
     private int lifesLeft = 3;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -83,7 +85,13 @@ public class GameManager : MonoBehaviour
 
     private void DisableHeart()
     {
-        if(lifesLeft >= 0)
+
+        if (lifesLeft == 1)
+        {
+            PlayerPrefs.SetInt("FinalScore", gold);
+            SceneManager.LoadScene("Scenes/GameOver");
+        }
+        if(lifesLeft > 1)
         {
             Destroy(heartImages[lifesLeft-1].gameObject);
             lifesLeft -= 1;
