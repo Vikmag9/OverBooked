@@ -25,6 +25,7 @@ public class pickup_item : MonoBehaviour
     void Start()
     {
         pickupHand = GameObject.Find("pickupHand");
+        EventManager.current.questDeactive += DropItem;
 
     }
 
