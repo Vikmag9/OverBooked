@@ -13110,7 +13110,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &1973626123
 AudioSource:
   m_ObjectHideFlags: 0
@@ -15452,6 +15452,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2156296180299799446, guid: 16db4f36d61064323bd2e81d14a53055, type: 3}
+      propertyPath: m_Value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2156296180299799446, guid: 16db4f36d61064323bd2e81d14a53055, type: 3}
+      propertyPath: m_MaxValue
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 2871623784564592354, guid: 16db4f36d61064323bd2e81d14a53055, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -15459,6 +15467,10 @@ PrefabInstance:
     - target: {fileID: 2871623784564592354, guid: 16db4f36d61064323bd2e81d14a53055, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5754349690145771120, guid: 16db4f36d61064323bd2e81d14a53055, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6690900523797294570, guid: 16db4f36d61064323bd2e81d14a53055, type: 3}
       propertyPath: m_AnchorMax.x

@@ -18,7 +18,7 @@ public class QuestGiver : MonoBehaviour
     public GameManager gm;
 
     public int id;
-    private float questTimer = 1000f;
+    private float questTimer = 20f;
 
     private bool clean;
     private bool roomservic;
@@ -135,7 +135,7 @@ public class QuestGiver : MonoBehaviour
 
     private void CountDownQuestTimer()
     {
-        quest.timer -= 1f;
+        quest.timer -= 1f * Time.deltaTime;
         questWindow.SetSliderValue(quest.timer);
 
         if(quest.timer <= 0)
