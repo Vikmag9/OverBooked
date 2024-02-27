@@ -11,7 +11,7 @@ public class CreateRoomservic : MonoBehaviour
 
     private bool makingRoomservic = false;
     private float timer = 0;
-    private float endTime = 3;
+    private float endTime = 5;
     public GameObject roomservic;
     public GameObject spawnPoint;
     //int count = 5;
@@ -41,7 +41,7 @@ public class CreateRoomservic : MonoBehaviour
 
     void Update()
     {
-        timerSlider.value = timer;
+        
         CountUpTimer();
         SpawnRoomservic();
     }
@@ -71,7 +71,8 @@ public class CreateRoomservic : MonoBehaviour
     {
         if(makingRoomservic && timer <= endTime)
         {
-            timer += 1* Time.deltaTime;
+            timer += 1 * Time.deltaTime;
+            timerSlider.value = timer;
         }
              
     }
@@ -81,6 +82,9 @@ public class CreateRoomservic : MonoBehaviour
         if(timer >= endTime && makingRoomservic)
         {
             Instantiate(roomservic, spawnPoint.transform.position, Quaternion.identity);
+            timer = 0;
+            timerSlider.value = timer;
+            makingRoomservic = false;
         }
     }
  

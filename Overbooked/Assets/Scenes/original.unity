@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44987547, g: 0.49993813, b: 0.5755746, a: 1}
+  m_IndirectSpecularColor: {r: 0.44987565, g: 0.4999383, b: 0.5755753, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -865,6 +865,7 @@ Transform:
   - {fileID: 366065793}
   - {fileID: 1439514575}
   - {fileID: 898575150}
+  - {fileID: 1375493230}
   - {fileID: 618248436}
   m_Father: {fileID: 1685334302263675217}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1852,11 +1853,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2156296180299799446, guid: 16db4f36d61064323bd2e81d14a53055, type: 3}
       propertyPath: m_Value
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2156296180299799446, guid: 16db4f36d61064323bd2e81d14a53055, type: 3}
       propertyPath: m_MaxValue
-      value: 1000
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2871623784564592354, guid: 16db4f36d61064323bd2e81d14a53055, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1865,6 +1866,14 @@ PrefabInstance:
     - target: {fileID: 2871623784564592354, guid: 16db4f36d61064323bd2e81d14a53055, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2871623784564592354, guid: 16db4f36d61064323bd2e81d14a53055, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -3.1600037
+      objectReference: {fileID: 0}
+    - target: {fileID: 2871623784564592354, guid: 16db4f36d61064323bd2e81d14a53055, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.26999998
       objectReference: {fileID: 0}
     - target: {fileID: 5754349690145771120, guid: 16db4f36d61064323bd2e81d14a53055, type: 3}
       propertyPath: m_PresetInfoIsWorld
@@ -5864,6 +5873,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d58072a79794a0140a705b403aa824d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roomservic: {fileID: 2850617668594302824, guid: fe27175f67d5081499d1a0c4944ec5ba, type: 3}
+  spawnPoint: {fileID: 1375493229}
 --- !u!1001 &899412427
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9143,12 +9154,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1375493229}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.776538, y: 1.044, z: 0.103}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.243463, y: 1.0440001, z: 0.10300064}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 102330086}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1380097020 stripped
 Transform:
@@ -17846,4 +17857,3 @@ SceneRoots:
   - {fileID: 2122693214}
   - {fileID: 1106916257}
   - {fileID: 666250828}
-  - {fileID: 1375493230}
