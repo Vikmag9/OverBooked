@@ -13,6 +13,7 @@ public class movement : MonoBehaviour
     private Vector3 velocity;
     public Rigidbody rb3D;
 
+    private float ORIGINAL_SPEED = 5f;
     private float speed = 5f;
     private Boolean inAir;
 
@@ -23,6 +24,7 @@ public class movement : MonoBehaviour
     private InputAction move;
     private InputAction jump;
     private InputAction dance;
+    private bool isSprinting;
 
 
     // Start is called before the first frame update
@@ -42,13 +44,20 @@ public class movement : MonoBehaviour
         jump = playerController.Player.Jump;
         dance = playerController.Player.Dance;
 
+
+
         move.Enable();
         jump.Enable();
         dance.Enable();
+        playerController.Player.sprintStart.Enable();
+        playerController.Player.sprintEnd.Enable();
 
         jump.performed += Jump;
         dance.performed += Dance;
         dance.canceled += ctx => ani.SetFloat("dance_var", 0f);
+
+        playerController.Player.sprintStart.performed += x => SprintPressed();
+        playerController.Player.sprintEnd.performed += x => SprintReleased();
     }
 
     private void OnDisable()
@@ -98,6 +107,21 @@ public class movement : MonoBehaviour
         {
             inAir = false;
         }
+    }
+
+    private void SprintPressed(){
+
+        isSprinting = true;
+        ani.SetBool("sprint_in", true);
+        speed = 8f;
+        Debug.Log("Sprint");
+    }
+
+    private void SprintReleased(){
+
+        isSprinting = false;
+        ani.SetBool("sprint_in", false);
+        speed = ORIGINAL_SPEED;
     }
 
 }

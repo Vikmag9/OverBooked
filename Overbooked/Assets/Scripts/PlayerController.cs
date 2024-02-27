@@ -89,6 +89,24 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""sprintStart"",
+                    ""type"": ""Button"",
+                    ""id"": ""f6d63a95-cffa-4e22-a59f-ed1400a9ee1b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""sprintEnd"",
+                    ""type"": ""Button"",
+                    ""id"": ""9af2508a-e2ff-4e23-816c-f6369ed04530"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -386,6 +404,28 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Quest"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""40579d28-3f56-43aa-8364-a2e86a63d86f"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""sprintStart"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dde80b26-ac9c-431e-8019-a34a36326453"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""sprintEnd"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -980,6 +1020,8 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         m_Player_Dance = m_Player.FindAction("Dance", throwIfNotFound: true);
         m_Player_Pickup = m_Player.FindAction("Pickup", throwIfNotFound: true);
         m_Player_Quest = m_Player.FindAction("Quest", throwIfNotFound: true);
+        m_Player_sprintStart = m_Player.FindAction("sprintStart", throwIfNotFound: true);
+        m_Player_sprintEnd = m_Player.FindAction("sprintEnd", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1060,6 +1102,8 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Dance;
     private readonly InputAction m_Player_Pickup;
     private readonly InputAction m_Player_Quest;
+    private readonly InputAction m_Player_sprintStart;
+    private readonly InputAction m_Player_sprintEnd;
     public struct PlayerActions
     {
         private @PlayerController m_Wrapper;
@@ -1071,6 +1115,8 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         public InputAction @Dance => m_Wrapper.m_Player_Dance;
         public InputAction @Pickup => m_Wrapper.m_Player_Pickup;
         public InputAction @Quest => m_Wrapper.m_Player_Quest;
+        public InputAction @sprintStart => m_Wrapper.m_Player_sprintStart;
+        public InputAction @sprintEnd => m_Wrapper.m_Player_sprintEnd;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1101,6 +1147,12 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @Quest.started += instance.OnQuest;
             @Quest.performed += instance.OnQuest;
             @Quest.canceled += instance.OnQuest;
+            @sprintStart.started += instance.OnSprintStart;
+            @sprintStart.performed += instance.OnSprintStart;
+            @sprintStart.canceled += instance.OnSprintStart;
+            @sprintEnd.started += instance.OnSprintEnd;
+            @sprintEnd.performed += instance.OnSprintEnd;
+            @sprintEnd.canceled += instance.OnSprintEnd;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1126,6 +1178,12 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @Quest.started -= instance.OnQuest;
             @Quest.performed -= instance.OnQuest;
             @Quest.canceled -= instance.OnQuest;
+            @sprintStart.started -= instance.OnSprintStart;
+            @sprintStart.performed -= instance.OnSprintStart;
+            @sprintStart.canceled -= instance.OnSprintStart;
+            @sprintEnd.started -= instance.OnSprintEnd;
+            @sprintEnd.performed -= instance.OnSprintEnd;
+            @sprintEnd.canceled -= instance.OnSprintEnd;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1315,6 +1373,8 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         void OnDance(InputAction.CallbackContext context);
         void OnPickup(InputAction.CallbackContext context);
         void OnQuest(InputAction.CallbackContext context);
+        void OnSprintStart(InputAction.CallbackContext context);
+        void OnSprintEnd(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
