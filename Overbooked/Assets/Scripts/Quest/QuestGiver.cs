@@ -56,6 +56,8 @@ public class QuestGiver : MonoBehaviour
             if (quest.isActive == false)
             {
                 questWindow.CloseQuestWindow();
+                EventManager.current.QuestDeactive();
+
             }
         }
         
@@ -143,15 +145,13 @@ public class QuestGiver : MonoBehaviour
 
             // Uppdatera belöningen för questen
             DeactivateQuest(reward);
-            /*
+            
             if (perform >= 3)
             {
                 DeactivateQuest(10);
                 completeQuestSound.Play();
-                EventManager.current.QuestDeactive();
-            }*/
-            completeQuestSound.Play();
-            EventManager.current.QuestDeactive();
+                //EventManager.current.QuestDeactive();
+            }
         }
         
     }
