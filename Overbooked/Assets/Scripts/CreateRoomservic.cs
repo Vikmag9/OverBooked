@@ -10,8 +10,10 @@ public class CreateRoomservic : MonoBehaviour
     private InputAction action;
 
     private bool makingRoomservic = false;
-    private float timer = 0f;
-    private float endTime = 1000f;
+    private float timer = 0;
+    private float endTime = 3;
+    public GameObject roomservic;
+    public GameObject spawnPoint;
     //int count = 5;
 
     private Slider timerSlider;
@@ -40,6 +42,8 @@ public class CreateRoomservic : MonoBehaviour
     void Update()
     {
         timerSlider.value = timer;
+        CountUpTimer();
+        SpawnRoomservic();
     }
 
     private void OnTriggerStay(Collider other)
@@ -58,18 +62,26 @@ public class CreateRoomservic : MonoBehaviour
 
     private void StartTimer(InputAction.CallbackContext contex)
     {
+        action.Disable();
         makingRoomservic = true;
-        CountUpTimer();
-        
+         
     }
 
     private void CountUpTimer()
     {
-        while(timer <= endTime)
+        if(makingRoomservic && timer <= endTime)
         {
-            timer += 0.00001f ;
+            timer += 1* Time.deltaTime;
         }
-        
+             
+    }
+
+    private void SpawnRoomservic()
+    {
+        if(timer >= endTime && makingRoomservic)
+        {
+            Instantiate(roomservic, spawnPoint.transform.position, Quaternion.identity);
+        }
     }
  
 
