@@ -144,11 +144,11 @@ public class QuestGiver : MonoBehaviour
             }
 
             // Uppdatera belöningen för questen
-            DeactivateQuest(reward);
+            //DeactivateQuest(reward);
             
             if (perform >= 3)
             {
-                DeactivateQuest(10);
+                DeactivateQuest(reward);
                 completeQuestSound.Play();
                 //EventManager.current.QuestDeactive();
             }
@@ -157,6 +157,7 @@ public class QuestGiver : MonoBehaviour
     }
 
     private void CountDownQuestTimer()
+
     {
         quest.timer -= 1f;
         questWindow.SetSliderValue(quest.timer);
