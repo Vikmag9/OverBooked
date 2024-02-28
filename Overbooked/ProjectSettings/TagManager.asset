@@ -11,6 +11,7 @@ TagManager:
   - LoadingText
   - Kitchen
   - KitchenUI
+  - Guest
   layers:
   - Default
   - TransparentFX

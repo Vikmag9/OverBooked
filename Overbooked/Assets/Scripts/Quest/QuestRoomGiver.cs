@@ -22,6 +22,11 @@ public class QuestRoomGiver : MonoBehaviour
     private bool clean;
     private bool roomservic;
 
+    private bool guestInRoom = false;
+    private bool canSpawnQuest = true;
+
+
+
     void Start()
     {
         
@@ -29,15 +34,29 @@ public class QuestRoomGiver : MonoBehaviour
         questCanvas = this.gameObject.transform.GetChild(transform.childCount - 1).gameObject;
         questWindowInRoom = this.GetComponent<DisplayQuest>();
         questWindowInRoom.CloseQuestWindow();
-        StartCoroutine(SetQuestActive(UnityEngine.Random.Range(1f, 5f)));
+        
         //SpawnQuest();
         EventManager.current.onRoomEnter += PerformQuest;
         EventManager.current.pickedUpCleaningItem += HoldingCleaningItem;
         EventManager.current.pickedUpRoomservicItem += HoldingRoomservicItem;
         EventManager.current.droppedItem += DroopingItem;
+        EventManager.current.onRoomGuestEnter += GuestInRoom;
+
+
+        StartCoroutine(SetQuestActive(UnityEngine.Random.Range(1f, 5f)));
 
     }
 
+    
+
+    private void GuestInRoom(int id)
+    {
+        if(id == roomId)
+        {
+            guestInRoom = true;
+        }
+        
+    }
     // Update is called once per frame
     void Update()
     {
@@ -49,6 +68,15 @@ public class QuestRoomGiver : MonoBehaviour
                 questWindowInRoom.CloseQuestWindow();
             }
         }
+
+        if (guestInRoom && canSpawnQuest)
+        {
+            StartCoroutine(SetQuestActive(1));//UnityEngine.Random.Range(1f, 5f)));
+            canSpawnQuest = false;
+            
+        }
+
+
     }
 
     private void SpawnQuest()
@@ -104,22 +132,21 @@ public class QuestRoomGiver : MonoBehaviour
             {
                 Debug.Log("Du är i rummet och utför en quest");
                 this.questInRoom.isActive = false;
-                //DeactivateQuest(10, id);
+                DeactivateQuest(10);
                 questManager.completeQuestSound.Play();
                 EventManager.current.QuestDeactive();
             }
         }
 
     }
-    public void DeactivateQuest(int gold, int id)
+    public void DeactivateQuest(int gold)
     {
-        if(roomId == id)
-        {
+       
+        
             this.questInRoom.isActive = false;
             //spawnQuestActive = true;
             //StartCoroutine(SetQuestActive(2f));
             questManager.gm.setGold(gold);
-        }
         
 
     }
