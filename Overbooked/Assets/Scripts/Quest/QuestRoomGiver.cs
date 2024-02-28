@@ -43,7 +43,7 @@ public class QuestRoomGiver : MonoBehaviour
         EventManager.current.onRoomGuestEnter += GuestInRoom;
 
 
-        StartCoroutine(SetQuestActive(UnityEngine.Random.Range(1f, 5f)));
+        //StartCoroutine(SetQuestActive(UnityEngine.Random.Range(1f, 5f)));
 
     }
 
@@ -71,7 +71,7 @@ public class QuestRoomGiver : MonoBehaviour
 
         if (guestInRoom && canSpawnQuest)
         {
-            StartCoroutine(SetQuestActive(1));//UnityEngine.Random.Range(1f, 5f)));
+            StartCoroutine(SetQuestActive(UnityEngine.Random.Range(1f, 5f)));
             canSpawnQuest = false;
             
         }
@@ -116,6 +116,7 @@ public class QuestRoomGiver : MonoBehaviour
             yield return new WaitForSeconds(waitTime);
             SpawnQuest();
             spawnQuestActive = false;
+            
 
         }
 
@@ -144,7 +145,8 @@ public class QuestRoomGiver : MonoBehaviour
        
         
             this.questInRoom.isActive = false;
-            //spawnQuestActive = true;
+            spawnQuestActive = true;
+            canSpawnQuest = true;
             //StartCoroutine(SetQuestActive(2f));
             questManager.gm.setGold(gold);
         
