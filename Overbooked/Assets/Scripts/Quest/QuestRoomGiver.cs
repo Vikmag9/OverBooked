@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 
 public class QuestRoomGiver : MonoBehaviour
 {
@@ -14,9 +16,9 @@ public class QuestRoomGiver : MonoBehaviour
     private GameObject questCanvas;
     private DisplayQuest questWindowInRoom;
     private int performQuest;
-    private float questTimer = 20f;
-    private int id;
+    private float questTimer = 40f;
 
+    private bool spawnQuestActive = true;
     private bool clean;
     private bool roomservic;
 
@@ -27,7 +29,8 @@ public class QuestRoomGiver : MonoBehaviour
         questCanvas = this.gameObject.transform.GetChild(transform.childCount - 1).gameObject;
         questWindowInRoom = this.GetComponent<DisplayQuest>();
         questWindowInRoom.CloseQuestWindow();
-        SpawnQuest();
+        StartCoroutine(SetQuestActive(UnityEngine.Random.Range(1f, 5f)));
+        //SpawnQuest();
         EventManager.current.onRoomEnter += PerformQuest;
         EventManager.current.pickedUpCleaningItem += HoldingCleaningItem;
         EventManager.current.pickedUpRoomservicItem += HoldingRoomservicItem;
@@ -43,7 +46,7 @@ public class QuestRoomGiver : MonoBehaviour
             CountDownQuestTimer();
             if (questInRoom.isActive == false)
             {
-                //questWindowInRoom.CloseQuestWindow();
+                questWindowInRoom.CloseQuestWindow();
             }
         }
     }
@@ -54,6 +57,7 @@ public class QuestRoomGiver : MonoBehaviour
         questInRoom = questManager.getRandomQuest();
         performQuest = 0;
         questInRoom.timer = questTimer;
+        questInRoom.isActive = true;
         questWindowInRoom.OpenQuestWindow(questInRoom);
 
     }
@@ -66,8 +70,9 @@ public class QuestRoomGiver : MonoBehaviour
         if (questInRoom.timer <= 0)
         {
             //if (quest.isActive)
-            
-                questManager.DeactivateQuest(0);
+            Debug.Log("hsfjsjfop");
+            questWindowInRoom.CloseQuestWindow();
+            questManager.DeactivateQuest(0);
             //EventManager.current.LoseLife();
             EventManager.current.LoseLife();
             questInRoom.timer = 10000000000;
@@ -75,20 +80,47 @@ public class QuestRoomGiver : MonoBehaviour
         }
     }
 
-    public void PerformQuest(int id)
+    public IEnumerator SetQuestActive(float waitTime)
     {
-        this.id = id;
-        if (id == this.id && id == roomId && CheckRequirements())
+        while (spawnQuestActive)
         {
 
+            yield return new WaitForSeconds(waitTime);
+            SpawnQuest();
+            spawnQuestActive = false;
+
+        }
+
+    }
+
+    public void PerformQuest(int id)
+    {
+        
+        if (id == roomId && CheckRequirements(id))
+        {
+            
             performQuest += 1;
             if (performQuest >= 3)
             {
-                questManager.DeactivateQuest(10);
+                Debug.Log("Du är i rummet och utför en quest");
+                this.questInRoom.isActive = false;
+                //DeactivateQuest(10, id);
                 questManager.completeQuestSound.Play();
                 EventManager.current.QuestDeactive();
             }
         }
+
+    }
+    public void DeactivateQuest(int gold, int id)
+    {
+        if(roomId == id)
+        {
+            this.questInRoom.isActive = false;
+            //spawnQuestActive = true;
+            //StartCoroutine(SetQuestActive(2f));
+            questManager.gm.setGold(gold);
+        }
+        
 
     }
     private void HoldingCleaningItem()
@@ -105,17 +137,36 @@ public class QuestRoomGiver : MonoBehaviour
         clean = false;
         roomservic = false;
     }
-    public bool CheckRequirements()
+    public bool CheckRequirements(int id)
     {
-        if (questInRoom.type.goalType == GoalType.Clean && clean)
+        if (this.questInRoom.type.goalType == GoalType.Clean && clean)
         {
             return true;
         }
-        else if (questInRoom.type.goalType == GoalType.Roomservice && roomservic)
+        else if (this.questInRoom.type.goalType == GoalType.Roomservice && roomservic)
         {
             return true;
         }
         return false;
     }
 
+    private void OnDestroy()
+    {
+        EventManager.current.onRoomEnter -= PerformQuest;
+    }
+
+    private Func<List<GameObject>> onRequestListOfRooms;
+    public void SetOnRequestListOfRooms(Func<List<GameObject>> returnEvent)
+    {
+        onRequestListOfRooms = returnEvent;
+    }
+
+    public List<GameObject> RequestListOfRooms()
+    {
+        if(onRequestListOfRooms != null)
+        {
+            return onRequestListOfRooms();
+        }
+        return null;
+    }
 }

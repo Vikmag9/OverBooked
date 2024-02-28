@@ -51,14 +51,14 @@ public class QuestGiver : MonoBehaviour
     private void Update()
     {
         
-        if(quest != null)
+        /*if(quest != null)
         {
            //CountDownQuestTimer();
             if (quest.isActive == false)
             {
                 questWindow.CloseQuestWindow();
             }
-        }
+        }*/
         
     }
 
@@ -76,7 +76,9 @@ public class QuestGiver : MonoBehaviour
 
     public QuestObjects getRandomQuest()
     {
-        return questList[Random.Range(0, questList.Count)];
+        QuestObjects getRandomQuest = questList[Random.Range(0, questList.Count)];
+        QuestObjects copyOfObject = Instantiate(getRandomQuest);
+        return copyOfObject;
         
     }
 
@@ -85,7 +87,7 @@ public class QuestGiver : MonoBehaviour
         return rooms[Random.Range(0, rooms.Count)];
     }
 
-    private void SpawnQuest()
+    /*private void SpawnQuest()
     {
 
         quest = getRandomQuest();
@@ -101,7 +103,7 @@ public class QuestGiver : MonoBehaviour
         EventManager.current.QuestActive();
 
 
-    }
+    }*/
 
     public IEnumerator SetQuestActive(float waitTime)
     {
