@@ -7114,7 +7114,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ce94b27f4365419f8e03a5a891d8fa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnerObject: {fileID: 815647450}
+  spawnerObject:
+  - {fileID: 815647450}
+  - {fileID: 1497527}
   spawnPosObj: {fileID: 831872183}
 --- !u!4 &1163063633 stripped
 Transform:
