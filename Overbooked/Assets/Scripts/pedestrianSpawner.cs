@@ -8,7 +8,7 @@ public class pedestrianSpawner : MonoBehaviour
 {
     public PlayerController playerController;
     private InputAction spawn;
-    public GameObject spawnerObject;
+    public List<GameObject> spawnerObject;
     public GameObject spawnPosObj;
     // Start is called before the first frame update
     void Start()
@@ -42,21 +42,26 @@ public class pedestrianSpawner : MonoBehaviour
         Random rnd = new Random();
         int num = rnd.Next(1000);
 
+        int modelRandom = rnd.Next(1);
+
         Vector3 spawnPos = spawnPosObj.transform.position;
 
 
         if(num == 1){
-            GameObject newObject = Instantiate(spawnerObject, spawnPos, Quaternion.identity);
+            GameObject newObject = Instantiate(spawnerObject[modelRandom], spawnPos, Quaternion.identity);
             //newObject.transform.localScale = new Vector3(0.08558407f,0.8690293f,0.02937347f);
             newObject.transform.localScale = new Vector3(1f,1f,1f);
+            newObject.transform.Rotate(1f, -90f, 1f);
         }
     }
 
         void Testspawner(InputAction.CallbackContext contex)
     {
             Vector3 spawnPos = spawnPosObj.transform.position;
+            Random rnd = new Random();
+            int modelRandom = rnd.Next(2);
 
-            GameObject newObject = Instantiate(spawnerObject, spawnPos, Quaternion.identity);
+            GameObject newObject = Instantiate(spawnerObject[modelRandom], spawnPos, Quaternion.identity);
             //newObject.transform.localScale = new Vector3(0.08558407f,0.8690293f,0.02937347f);
             newObject.transform.localScale = new Vector3(1f,1f,1f);
             newObject.transform.Rotate(1f, -90f, 1f);
