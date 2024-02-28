@@ -100,7 +100,7 @@ public class QuestRoomGiver : MonoBehaviour
             //if (quest.isActive)
             Debug.Log("hsfjsjfop");
             questWindowInRoom.CloseQuestWindow();
-            questManager.DeactivateQuest(0);
+            DeactivateQuest(0);
             //EventManager.current.LoseLife();
             EventManager.current.LoseLife();
             questInRoom.timer = 10000000000;

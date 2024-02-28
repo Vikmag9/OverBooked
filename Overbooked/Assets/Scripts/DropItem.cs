@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DropItem : MonoBehaviour
 {
+    private bool destroyItem = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,12 +26,20 @@ public class DropItem : MonoBehaviour
 
     private void DestroyItem()
     {
-        if(this.gameObject != null)
-        {
-            Destroy(this.gameObject);
-            
-        }
-        EventManager.current.questDeactive -= DestroyItem;
+        destroyItem = true;
 
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Room") && destroyItem)
+        {
+            if (this.gameObject != null)
+            {
+                Destroy(this.gameObject);
+                destroyItem = false;
+            }
+            EventManager.current.questDeactive -= DestroyItem;
+        }
     }
 }
