@@ -107,6 +107,15 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Testspawner"",
+                    ""type"": ""Button"",
+                    ""id"": ""61b8b8e8-51ca-428c-9d36-46bfae6dee96"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -426,6 +435,17 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""sprintEnd"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""df5500ea-8017-4e28-8ccc-f24f2a1f7d84"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Testspawner"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1022,6 +1042,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         m_Player_Quest = m_Player.FindAction("Quest", throwIfNotFound: true);
         m_Player_sprintStart = m_Player.FindAction("sprintStart", throwIfNotFound: true);
         m_Player_sprintEnd = m_Player.FindAction("sprintEnd", throwIfNotFound: true);
+        m_Player_Testspawner = m_Player.FindAction("Testspawner", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1104,6 +1125,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Quest;
     private readonly InputAction m_Player_sprintStart;
     private readonly InputAction m_Player_sprintEnd;
+    private readonly InputAction m_Player_Testspawner;
     public struct PlayerActions
     {
         private @PlayerController m_Wrapper;
@@ -1117,6 +1139,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         public InputAction @Quest => m_Wrapper.m_Player_Quest;
         public InputAction @sprintStart => m_Wrapper.m_Player_sprintStart;
         public InputAction @sprintEnd => m_Wrapper.m_Player_sprintEnd;
+        public InputAction @Testspawner => m_Wrapper.m_Player_Testspawner;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1153,6 +1176,9 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @sprintEnd.started += instance.OnSprintEnd;
             @sprintEnd.performed += instance.OnSprintEnd;
             @sprintEnd.canceled += instance.OnSprintEnd;
+            @Testspawner.started += instance.OnTestspawner;
+            @Testspawner.performed += instance.OnTestspawner;
+            @Testspawner.canceled += instance.OnTestspawner;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1184,6 +1210,9 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @sprintEnd.started -= instance.OnSprintEnd;
             @sprintEnd.performed -= instance.OnSprintEnd;
             @sprintEnd.canceled -= instance.OnSprintEnd;
+            @Testspawner.started -= instance.OnTestspawner;
+            @Testspawner.performed -= instance.OnTestspawner;
+            @Testspawner.canceled -= instance.OnTestspawner;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1375,6 +1404,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         void OnQuest(InputAction.CallbackContext context);
         void OnSprintStart(InputAction.CallbackContext context);
         void OnSprintEnd(InputAction.CallbackContext context);
+        void OnTestspawner(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
