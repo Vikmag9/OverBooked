@@ -18,12 +18,12 @@ public class QuestGiver : MonoBehaviour
     public GameManager gm;
 
     public int id;
-    private float questTimer = 1000f;
+    private float questTimer = 20f;
 
     private bool clean;
     private bool roomservic;
 
-    private AudioSource completeQuestSound;
+    public AudioSource completeQuestSound;
 
     private int currentRoomID;
 
@@ -34,10 +34,11 @@ public class QuestGiver : MonoBehaviour
       
         StartCoroutine(SetQuestActive(2f));
         completeQuestSound = GameObject.Find("CompleteQuestSound").GetComponent<AudioSource>();
-        EventManager.current.onRoomEnter += PerformQuest;
-        EventManager.current.pickedUpCleaningItem += HoldingCleaningItem;
+        //EventManager.current.onRoomEnter += PerformQuest;
+        /*EventManager.current.pickedUpCleaningItem += HoldingCleaningItem;
         EventManager.current.pickedUpRoomservicItem += HoldingRoomservicItem;
         EventManager.current.droppedItem += DroopingItem;
+        Debug.Log(questList.Count);*/
         
         
     }
@@ -50,35 +51,34 @@ public class QuestGiver : MonoBehaviour
     private void Update()
     {
         
-        if(quest != null)
+        /*if(quest != null)
         {
-           CountDownQuestTimer();
+           //CountDownQuestTimer();
             if (quest.isActive == false)
             {
                 questWindow.CloseQuestWindow();
-                EventManager.current.QuestDeactive();
-
             }
-        }
+        }*/
         
     }
 
     public void DeactivateQuest(int gold)
     {
-        if (quest.isActive)
-        {
-            quest.isActive = false;
+        
+            //quest.isActive = false;
             spawnQuestActive = true;
             StartCoroutine(SetQuestActive(2f));
             gm.setGold(gold);
 
-        }
+        
         
     }
 
-    private QuestObjects getRandomQuest()
+    public QuestObjects getRandomQuest()
     {
-        return questList[Random.Range(0, questList.Count)];
+        QuestObjects getRandomQuest = questList[Random.Range(0, questList.Count)];
+        QuestObjects copyOfObject = Instantiate(getRandomQuest);
+        return copyOfObject;
         
     }
 
@@ -87,23 +87,23 @@ public class QuestGiver : MonoBehaviour
         return rooms[Random.Range(0, rooms.Count)];
     }
 
-    private void SpawnQuest()
+    /*private void SpawnQuest()
     {
 
         quest = getRandomQuest();
         room = getRandomRoom();
         perform = 0;
-        questWindow.SetSliderValue(perform);
+        //questWindow.SetSliderValue(perform);
         quest.isActive = true;
         quest.timer = questTimer;
         quest.roomId = room.GetComponent<RoomTrigger>().id;
-        questWindow.OpenQuestWindow(quest, room.transform.position);
+        questWindow.OpenQuestWindow(quest);
         
         this.currentRoomID = room.GetComponent<RoomTrigger>().id;
         EventManager.current.QuestActive();
 
 
-    }
+    }*/
 
     public IEnumerator SetQuestActive(float waitTime)
     {
@@ -111,55 +111,33 @@ public class QuestGiver : MonoBehaviour
         {
          
             yield return new WaitForSeconds(waitTime);
-            SpawnQuest();
+            //SpawnQuest();
             spawnQuestActive = false;
             
         }
         
     }
 
-    public void PerformQuest(int id)
+    /*public void PerformQuest(int id)
     {
         this.id = id;
         if (id == this.id && id == quest.roomId && CheckRequirements())
         {
             
             perform += 1;
-
-            float remainingTimePercentage = quest.timer / questTimer;
-
-            // Kolla vilken belöningsnivå som ska tilldelas baserat på tidsåterstående
-            int reward;
-            if (remainingTimePercentage > 2f / 3f) // Över 2/3 av tiden kvar
-            {
-                reward = 10;
-            }
-            else if (remainingTimePercentage > 1f / 3f) // Mindre än 2/3 men mer än 1/3 av tiden kvar
-            {
-                reward = 5;
-            }
-            else // Mindre än 1/3 av tiden kvar
-            {
-                reward = 2;
-            }
-
-            // Uppdatera belöningen för questen
-            //DeactivateQuest(reward);
-            
             if (perform >= 3)
             {
-                DeactivateQuest(reward);
+                DeactivateQuest(10);
                 completeQuestSound.Play();
-                //EventManager.current.QuestDeactive();
+                EventManager.current.QuestDeactive();
             }
         }
         
-    }
+    }*/
 
-    private void CountDownQuestTimer()
-
+    /*private void CountDownQuestTimer()
     {
-        quest.timer -= 1f;
+        quest.timer -= 1f * Time.deltaTime;
         questWindow.SetSliderValue(quest.timer);
 
         if(quest.timer <= 0)
@@ -170,10 +148,10 @@ public class QuestGiver : MonoBehaviour
             quest.timer = 10000000000;
 
         }
-    }
+    }*/
 
 
-    private void HoldingCleaningItem()
+    /*private void HoldingCleaningItem()
     {
         clean = true;
     }
@@ -188,7 +166,7 @@ public class QuestGiver : MonoBehaviour
         roomservic = false;
     }
 
-    private bool CheckRequirements()
+    public bool CheckRequirements()
     {
         if(quest.type.goalType == GoalType.Clean && clean)
         {
@@ -200,7 +178,7 @@ public class QuestGiver : MonoBehaviour
         }
         return false;
     }
-
+*/
     public int getRoomID()
     {
         return currentRoomID;

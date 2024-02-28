@@ -30,6 +30,24 @@ public class EventManager : MonoBehaviour
         }
     }
 
+    public event Action<int> onRoomGuestEnter;
+    public void RoomGuestTriggerEnter(int id)
+    {
+        if (onRoomGuestEnter != null)
+        {
+            onRoomGuestEnter(id);
+        }
+    }
+
+    public event Action<int> onRoomGuestExit;
+    public void RoomGuestTriggerExit(int id)
+    {
+        if (onRoomGuestExit != null)
+        {
+            onRoomGuestExit(id);
+        }
+    }
+
     public event Action pickedUpCleaningItem;
     public void PickedUpCleaningItem()
     {

@@ -25,6 +25,7 @@ public class pickup_item : MonoBehaviour
     void Start()
     {
         pickupHand = GameObject.Find("pickupHand");
+        EventManager.current.questDeactive += DropItem;
 
     }
 
@@ -40,7 +41,7 @@ public class pickup_item : MonoBehaviour
 
     void DropItem()
     {
-            
+        Debug.Log("Drop Item");
             pickedUpItem.GetComponent<Collider>().enabled = true;
             pickedUpItem.GetComponent<Rigidbody>().useGravity = true;
             pickedUpItem = null;

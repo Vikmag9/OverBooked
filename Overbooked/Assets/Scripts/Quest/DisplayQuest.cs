@@ -19,24 +19,24 @@ public class DisplayQuest : MonoBehaviour
 
     private void Start()
     {
-        questWindow.SetActive(false);
+        //this.questWindow.SetActive(false);
         
     }
 
-    public void OpenQuestWindow(QuestObjects quest, Vector3 roomPosition)
+    public void OpenQuestWindow(QuestObjects quest)
     {
         
-        questWindow.transform.position = new Vector3(roomPosition.x + 2.55f, roomPosition.y + 1, roomPosition.z - 5f);
-        questWindow.SetActive(true);
-        nameText.text = quest.name;
+        //questWindow.transform.position = new Vector3(roomPosition.x + 2.55f, roomPosition.y + 1, roomPosition.z - 5f);
+        this.questWindow.SetActive(true);
+        this.nameText.text = quest.name;
         //descriptionText.text = quest.description;
-        iconImage.sprite = quest.icon;
+        this.iconImage.sprite = quest.icon;
     }
 
-    public void CloseQuestWindow() { questWindow.SetActive(false); }
+    public void CloseQuestWindow() { this.questWindow.SetActive(false); }
 
     public void SetSliderValue(float value)
     {
-        slider.value = value;
+        this.slider.value = value;
     }
 }

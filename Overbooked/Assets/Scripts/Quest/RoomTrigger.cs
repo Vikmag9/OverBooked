@@ -33,6 +33,10 @@ public class RoomTrigger : MonoBehaviour
             questButton.Enable();
             questButton.performed += pressedButton;
         }
+        if (other.CompareTag("Guest"))
+        {
+            EventManager.current.RoomGuestTriggerEnter(id);
+        }
         
     }
 
@@ -42,6 +46,11 @@ public class RoomTrigger : MonoBehaviour
         {
             questButton.Disable();
             EventManager.current.RoomTriggerExit(id);
+        }
+
+        if (other.CompareTag("Guest"))
+        {
+            EventManager.current.RoomGuestTriggerExit(id);
         }
 
     }
