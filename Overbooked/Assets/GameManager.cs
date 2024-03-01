@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour
     private bool timerIsRunning = false;
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI goldText;
-    //public Slider timerSlider;
     private int gold = 0;
     public List<Image> heartImages;
     private int lifesLeft = 3;
@@ -26,6 +25,12 @@ public class GameManager : MonoBehaviour
         timerIsRunning = true;
         DisplayGold();
         EventManager.current.playerLoseLife += DisableHeart;
+        PopUpMenu.popUpMenuActive += HandlePopUpMenuState;
+    }
+
+    private void HandlePopUpMenuState(bool isActive)
+    {
+        timerIsRunning = !isActive; 
     }
 
     private GameManager Singelton()
@@ -43,6 +48,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        PopUpMenu.popUpMenuActive += HandlePopUpMenuState;
         if (timerIsRunning)
         {
             if (timeRemaining > 0)

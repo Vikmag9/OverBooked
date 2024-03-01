@@ -17,6 +17,7 @@ public class QuestRoomGiver : MonoBehaviour
     private DisplayQuest questWindowInRoom;
     private int performQuest;
     private float questTimer = 40f;
+    private bool timerIsRunning = true;
 
     private bool spawnQuestActive = true;
     private bool clean;
@@ -42,12 +43,19 @@ public class QuestRoomGiver : MonoBehaviour
         EventManager.current.droppedItem += DroopingItem;
         EventManager.current.onRoomGuestEnter += GuestInRoom;
 
+        PopUpMenu.popUpMenuActive += HandlePopUpMenuState;
 
         //StartCoroutine(SetQuestActive(UnityEngine.Random.Range(1f, 5f)));
 
     }
 
-    
+    private void HandlePopUpMenuState(bool isActive)
+    {
+        timerIsRunning = !isActive;
+    }
+
+
+
 
     private void GuestInRoom(int id)
     {
@@ -62,10 +70,13 @@ public class QuestRoomGiver : MonoBehaviour
     {
         if (questInRoom != null)
         {
-            CountDownQuestTimer();
-            if (questInRoom.isActive == false)
+            if (timerIsRunning == true)
             {
-                questWindowInRoom.CloseQuestWindow();
+                CountDownQuestTimer();
+                if (questInRoom.isActive == false)
+                {
+                    questWindowInRoom.CloseQuestWindow();
+                }
             }
         }
 
@@ -131,7 +142,7 @@ public class QuestRoomGiver : MonoBehaviour
             performQuest += 1;
             if (performQuest >= 3)
             {
-                Debug.Log("Du är i rummet och utför en quest");
+                Debug.Log("Du ?r i rummet och utf?r en quest");
                 this.questInRoom.isActive = false;
                 DeactivateQuest(10);
                 questManager.completeQuestSound.Play();
