@@ -19,13 +19,18 @@ public class pickup_item : MonoBehaviour
 
     private GameObject pickupHand;
     private GameObject pickedUpItem;
-    
+
+    public GameObject bucket;
+    private Vector3 originalPosition;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
         pickupHand = GameObject.Find("pickupHand");
         EventManager.current.questDeactive += DropItem;
+        originalPosition = bucket.transform.position;
 
     }
 
@@ -49,9 +54,10 @@ public class pickup_item : MonoBehaviour
             holding = false;
             
             EventManager.current.DroppedItem();
+            bucket.transform.position = originalPosition;
 
-            
-        
+
+
     }
 
     //---------- Update ---------------------------
