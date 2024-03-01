@@ -10,6 +10,7 @@ public class pedestrianSpawner : MonoBehaviour
     private InputAction spawn;
     public List<GameObject> spawnerObject;
     public GameObject spawnPosObj;
+    public GameObject killPosObj;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,11 +41,13 @@ public class pedestrianSpawner : MonoBehaviour
     void Update()
     {
         Random rnd = new Random();
-        int num = rnd.Next(1000);
+        int num = rnd.Next(10000);
 
         int modelRandom = rnd.Next(1);
 
         Vector3 spawnPos = spawnPosObj.transform.position;
+
+        Vector3 killPos = killPosObj.transform.position;
 
 
         if(num == 1){
@@ -52,6 +55,10 @@ public class pedestrianSpawner : MonoBehaviour
             //newObject.transform.localScale = new Vector3(0.08558407f,0.8690293f,0.02937347f);
             newObject.transform.localScale = new Vector3(1f,1f,1f);
             newObject.transform.Rotate(1f, -90f, 1f);
+
+            if(newObject.transform.position == killPos){
+                Destroy(newObject, 1f);
+            }
         }
     }
 
