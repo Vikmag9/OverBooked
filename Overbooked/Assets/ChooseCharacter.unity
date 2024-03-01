@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.6344778, g: 0.8734658, b: 0.99061686, a: 1}
+  m_IndirectSpecularColor: {r: 0.63445455, g: 0.873444, b: 0.99061686, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1339,6 +1339,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 651200023656147211, guid: d9b6811920a3bcd73a68575dbd941a58, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4359023754507649419, guid: d9b6811920a3bcd73a68575dbd941a58, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5472218445071336781, guid: d9b6811920a3bcd73a68575dbd941a58, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5617974054099463242, guid: d9b6811920a3bcd73a68575dbd941a58, type: 3}
       propertyPath: m_Name
       value: BoyCharacter
@@ -1347,6 +1359,10 @@ PrefabInstance:
       propertyPath: m_UseGravity
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6671569453238930741, guid: d9b6811920a3bcd73a68575dbd941a58, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: ee77d5f0137fc0eb8bbf6f44615aef52, type: 2}
     - target: {fileID: 9199446013851056024, guid: d9b6811920a3bcd73a68575dbd941a58, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5834
@@ -1464,6 +1480,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3741652818074323655, guid: affc9bf69c3dc12e394a1f594390aea6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3885000536742975110, guid: affc9bf69c3dc12e394a1f594390aea6, type: 3}
       propertyPath: m_Name
       value: Player_female
@@ -1472,8 +1492,17 @@ PrefabInstance:
       propertyPath: m_UseGravity
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6839607488635571939, guid: affc9bf69c3dc12e394a1f594390aea6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9065614595159064872, guid: affc9bf69c3dc12e394a1f594390aea6, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: ee77d5f0137fc0eb8bbf6f44615aef52, type: 2}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4041981477980079394, guid: affc9bf69c3dc12e394a1f594390aea6, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: affc9bf69c3dc12e394a1f594390aea6, type: 3}
@@ -1615,6 +1644,7 @@ MonoBehaviour:
   startButton: {fileID: 278116250}
   boyCharacter: {fileID: 184142026}
   girlCharacter: {fileID: 592957321}
+  selectedCharacter: 0
 --- !u!4 &1210321458
 Transform:
   m_ObjectHideFlags: 0

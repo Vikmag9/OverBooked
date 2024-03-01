@@ -12,6 +12,8 @@ public class CharacterScript : MonoBehaviour
     private bool boy = false;
     private Color boyButton;
     private Color girlButton;
+
+    private int selectedCharacter = 0;
  
     void Start()
     {
@@ -24,6 +26,7 @@ public class CharacterScript : MonoBehaviour
     {
         girl = !girl;
         HighlightCharacterButton(girlCharacter);
+        selectedCharacter = 1;
 
         if (girl)
         {
@@ -46,7 +49,7 @@ public class CharacterScript : MonoBehaviour
     {
         boy = !boy;
         HighlightCharacterButton(boyCharacter);
-
+        selectedCharacter = 0;
         if (boy)
         {
             if (girl)
@@ -76,4 +79,6 @@ public class CharacterScript : MonoBehaviour
     {
         startButton.gameObject.SetActive(true);
     }
+
+    public int getCharacterNum(){return selectedCharacter;}
 }
