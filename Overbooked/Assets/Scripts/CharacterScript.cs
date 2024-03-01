@@ -27,11 +27,17 @@ public class CharacterScript : MonoBehaviour
 
         if (girl)
         {
+            if (boy)
+            {
+                boyCharacter.image.color = boyButton;
+                boyButton.a = 1f;
+            }
             OnCharacterButtonClicked();
         } else
         {
             startButton.gameObject.SetActive(false);
             girlCharacter.image.color = girlButton;
+            girlButton.a = 1f;
         }
     }
 
@@ -43,18 +49,26 @@ public class CharacterScript : MonoBehaviour
 
         if (boy)
         {
+            if (girl)
+            {
+                girlCharacter.image.color = girlButton;
+                girlButton.a = 1f;
+            }
+
             OnCharacterButtonClicked();
         }
         else
         {
             startButton.gameObject.SetActive(false);
             boyCharacter.image.color = boyButton;
+            boyButton.a = 1f;
         }
     }
 
     public void HighlightCharacterButton(Button button)
     {
         Color highlightColor = Color.yellow; // Du kan justera färgen efter dina preferenser
+        highlightColor.a = 0.5f;
         button.image.color = highlightColor;
     }
 
