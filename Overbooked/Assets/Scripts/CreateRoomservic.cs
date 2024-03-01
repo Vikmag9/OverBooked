@@ -8,6 +8,7 @@ public class CreateRoomservic : MonoBehaviour
 {
     private PlayerController controller;
     private InputAction action;
+    private AudioSource bellSound;
 
     private bool makingRoomservic = false;
     private float timer = 0;
@@ -21,6 +22,7 @@ public class CreateRoomservic : MonoBehaviour
     {
         
         timerSlider = GameObject.FindWithTag("KitchenUI").gameObject.GetComponentInChildren<Slider>();
+        bellSound = GameObject.Find("BellSound").gameObject.GetComponent<AudioSource>();
     }
 
     private void Awake()
@@ -85,6 +87,7 @@ public class CreateRoomservic : MonoBehaviour
             timer = 0;
             timerSlider.value = timer;
             makingRoomservic = false;
+            bellSound.Play();
         }
     }
  

@@ -12,6 +12,7 @@ TagManager:
   - Kitchen
   - KitchenUI
   - Guest
+  - Room
   layers:
   - Default
   - TransparentFX
