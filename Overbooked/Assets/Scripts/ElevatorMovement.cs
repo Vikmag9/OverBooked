@@ -100,7 +100,7 @@ public class ElevatorMovement : MonoBehaviour
 
     public void MoveElevatorDown()
     {
-        if (transform.position.y > 0 && moveDownAFloor)
+        if (currentLevel > 0 && moveDownAFloor)
         {
             ec.MovePlayerInElevator(currentLevel, new Vector3(transform.position.x, transform.position.y, transform.position.z));
             moving = true;
@@ -110,8 +110,8 @@ public class ElevatorMovement : MonoBehaviour
         if (transform.position.y < levelList[currentLevel-1].getLevelPos().position.y + 0.1f && moveDownAFloor)
         {
             moving = false;
+            currentLevel -= 1;  
             moveDownAFloor = false;
-            currentLevel -= 1;
             transform.position = new Vector3(transform.position.x, levelList[currentLevel].getLevelPos().position.y, transform.position.z);
             ec.MovePlayerOutOfElevator(currentLevel);
         }
