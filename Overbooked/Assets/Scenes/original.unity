@@ -6425,6 +6425,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e7c426cc2ae1d8e95b37885273256b63, type: 3}
   m_PrefabInstance: {fileID: 960944638}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &970535107 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2545975689447940881, guid: b2b71cca49199a2a4a02659fce313ac5, type: 3}
+  m_PrefabInstance: {fileID: 273647789}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &972230705
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7677,6 +7682,54 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42eabf40513d7433096049c5a8be3c8b, type: 3}
+--- !u!1 &1153281290
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1153281291}
+  - component: {fileID: 1153281292}
+  m_Layer: 6
+  m_Name: PedenstranSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1153281291
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1153281290}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.594, y: 0, z: 1.76}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 949281407}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1153281292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1153281290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ce94b27f4365419f8e03a5a891d8fa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnerObject:
+  - {fileID: 970535107}
+  - {fileID: 1497527}
+  spawnPosObj: {fileID: 831872183}
 --- !u!4 &1163063633 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2099416890511317002, guid: 2294ac72b60f4da46974d1f746b56439, type: 3}
