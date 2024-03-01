@@ -7,6 +7,8 @@ public class ElevatorCall : MonoBehaviour
 {
     public ElevetorInputMap controller;
     private InputAction callElevator;
+    private InputAction moveUp;
+    private InputAction moveDown;
 
     private GameObject player;
 
@@ -21,6 +23,9 @@ public class ElevatorCall : MonoBehaviour
     private void OnEnable()
     {
         callElevator = controller.Elevator.Call;
+        moveUp = controller.Elevator.MoveElevatorUp;
+        moveDown = controller.Elevator.MoveElevatorDown;
+
         callElevator.Enable();
         
     }
@@ -33,7 +38,23 @@ public class ElevatorCall : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         callElevator.Enable();
-        callElevator.performed += context => em.SetCalledElevator(true);
+        
+        
+
+
+        //callElevator.performed += context => em.SetCalledElevator(true);
+        if (!em.moving){
+            moveUp.Enable();
+            moveDown.Enable();
+        }
+        else{
+            moveUp.Disable();
+            moveDown.Disable();
+        }
+
+        moveDown.performed += context => em.SetDown(true);
+        moveUp.performed += context => em.SetUp(true);
+
         if (other.CompareTag("Player"))
         {
             player = other.gameObject;
@@ -44,6 +65,8 @@ public class ElevatorCall : MonoBehaviour
     {
         player = null;
         callElevator.Disable();
+        moveUp.Disable();
+        moveDown.Disable();
     }
 
 

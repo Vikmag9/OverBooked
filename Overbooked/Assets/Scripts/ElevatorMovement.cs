@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -13,7 +14,7 @@ public class ElevatorMovement : MonoBehaviour
     private Boolean calledElevator = false;
     private Boolean moveUpAFloor = false;
     private Boolean moveDownAFloor = false;
-    private Boolean moving = false;
+    public Boolean moving = false;
 
     public int currentLevel;
     private int beforeLevel;
@@ -44,6 +45,14 @@ public class ElevatorMovement : MonoBehaviour
         calledElevator = newInput;
     }
 
+    public void SetUp(Boolean newInput){
+        moveUpAFloor = newInput;
+    }
+
+    public void SetDown(Boolean newInput){
+        moveDownAFloor = newInput;
+    }
+
     private void Awake()
     {
         currentLevel = levelList[0].getLevelNumber();
@@ -56,45 +65,53 @@ public class ElevatorMovement : MonoBehaviour
 
     private void Update()
     {
-        CallElevator();
+        //CallElevator();
         MoveElevatorUp();
         MoveElevatorDown();
+        
+
+
 
     }
 
 
-    void MoveElevatorUp()
-    {
-        if (transform.position.y < levelList[currentLevel].getLevelPos().position.y && moveUpAFloor)
-        {
-            moving = true;
-            transform.Translate(0, 0.01f * elevatorSpeed * Time.deltaTime, 0);
-        }
+    public void MoveElevatorUp()
+    {   if (currentLevel < levelList.Count()-1){
+            if (transform.position.y < levelList[currentLevel+1].getLevelPos().position.y && moveUpAFloor)
+            {
+                ec.MovePlayerInElevator(currentLevel, new Vector3(transform.position.x, transform.position.y, transform.position.z));
+                moving = true;
+                this.transform.Translate(0, 0.01f * elevatorSpeed * Time.deltaTime, 0);
+                //beforeLevel = currentLevel;
+                //currentLevel = beforeLevel + 1;
+            }
 
-        if (transform.position.y > levelList[currentLevel].getLevelPos().position.y - 0.1f && moveUpAFloor)
-        {
-            moving = false;
-            moveUpAFloor = false;
-            //currentLevel += 1;
-            transform.position = new Vector3(transform.position.x, levelList[currentLevel].getLevelPos().position.y, transform.position.z);
-            ec.MovePlayerOutOfElevator(currentLevel);
-            
+            if (transform.position.y > levelList[currentLevel+1].getLevelPos().position.y - 0.1f && moveUpAFloor)
+            {
+                moving = false;
+                moveUpAFloor = false;
+                currentLevel += 1;
+                transform.position = new Vector3(transform.position.x, levelList[currentLevel].getLevelPos().position.y, transform.position.z);
+                ec.MovePlayerOutOfElevator(currentLevel);
+            }
         }
 
     }
 
-    void MoveElevatorDown()
+    public void MoveElevatorDown()
     {
-        if (transform.position.y > levelList[currentLevel].getLevelPos().position.y)
+        if (transform.position.y > 0 && moveDownAFloor)
         {
+            ec.MovePlayerInElevator(currentLevel, new Vector3(transform.position.x, transform.position.y, transform.position.z));
             moving = true;
             transform.Translate(0, -0.01f * elevatorSpeed * Time.deltaTime, 0);
         }
 
-        if (transform.position.y < levelList[currentLevel].getLevelPos().position.y + 0.1f && moveDownAFloor)
+        if (transform.position.y < levelList[currentLevel-1].getLevelPos().position.y + 0.1f && moveDownAFloor)
         {
             moving = false;
             moveDownAFloor = false;
+            currentLevel -= 1;
             transform.position = new Vector3(transform.position.x, levelList[currentLevel].getLevelPos().position.y, transform.position.z);
             ec.MovePlayerOutOfElevator(currentLevel);
         }
