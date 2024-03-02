@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private float timeRemaining = 70;
+    private float timeRemaining = 120;
     private float speedUpTime = 60;
     private bool timerIsRunning = false;
     public TextMeshProUGUI timerText;
