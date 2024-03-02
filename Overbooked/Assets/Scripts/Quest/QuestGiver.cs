@@ -15,6 +15,7 @@ public class QuestGiver : MonoBehaviour
 
 
     public AudioSource completeQuestSound;
+    public AudioSource FailureSound;
 
     private int currentRoomID;
 
@@ -23,7 +24,7 @@ public class QuestGiver : MonoBehaviour
     private void Start()
     {
         completeQuestSound = GameObject.Find("CompleteQuestSound").GetComponent<AudioSource>();
-       
+        
     }
 
     public QuestObjects getRandomQuest()

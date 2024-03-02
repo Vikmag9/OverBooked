@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private float timeRemaining = 180;
+    private float timeRemaining = 70;
     private float speedUpTime = 60;
     private bool timerIsRunning = false;
     public TextMeshProUGUI timerText;
@@ -18,9 +18,20 @@ public class GameManager : MonoBehaviour
     public List<Image> heartImages;
     private int lifesLeft = 3;
 
+    //text
+    private Color normalTextColor;
+    private Vector3 normalTextScale;
+    private Vector3 normalTextPosition;
+    private int countNr = 0;
+
     // Start is called before the first frame update
     void Start()
     {
+
+        normalTextColor = timerText.color;
+        normalTextScale = timerText.transform.localScale;
+        normalTextPosition = timerText.transform.localPosition;
+
         Singelton();
         timerIsRunning = true;
         DisplayGold();
@@ -63,9 +74,16 @@ public class GameManager : MonoBehaviour
                 PlayerPrefs.SetInt("VictoryScore", gold);
                 SceneManager.LoadScene("Scenes/VictoryPage");
             }
+     
             DisplayTime(timeRemaining);
 
-            if(timeRemaining <= speedUpTime)
+            if (timeRemaining <= 60 && countNr == 0) // Anropa ChangeTimerColor() endast en gång när tiden når eller går under 60 sekunder
+            {
+                ChangeTimerColor();
+                countNr += 1;
+            }
+
+            if (timeRemaining <= speedUpTime)
             {
                 EventManager.current.SpeedUpGame();
             }
@@ -104,6 +122,12 @@ public class GameManager : MonoBehaviour
             lifesLeft -= 1;
         }
         
+    }
+
+
+    private void ChangeTimerColor()
+    {
+        timerText.color = Color.red; // Ändra textens färg till rött
     }
 
 }

@@ -49,6 +49,7 @@ public class QuestRoomGiver : MonoBehaviour
 
     }
 
+
     private void HandlePopUpMenuState(bool isActive)
     {
         timerIsRunning = !isActive;
@@ -114,6 +115,7 @@ public class QuestRoomGiver : MonoBehaviour
             DeactivateQuest(0);
             //EventManager.current.LoseLife();
             EventManager.current.LoseLife();
+            questManager.FailureSound.Play();
             questInRoom.timer = 10000000000;
 
         }
@@ -142,9 +144,25 @@ public class QuestRoomGiver : MonoBehaviour
             performQuest += 1;
             if (performQuest >= 3)
             {
+                float remainingTimePercentage = this.questInRoom.timer / questTimer;
+                int reward;
+
+                if (remainingTimePercentage > 2f / 3f) 
+                {
+                    reward = 10;
+                }
+                else if (remainingTimePercentage > 1f / 3f)  
+                {
+                    reward = 5;
+                }
+                else 
+                {
+                    reward = 2;
+                }
+
                 Debug.Log("Du ?r i rummet och utf?r en quest");
                 this.questInRoom.isActive = false;
-                DeactivateQuest(10);
+                DeactivateQuest(reward);
                 questManager.completeQuestSound.Play();
                 EventManager.current.QuestDeactive();
             }
