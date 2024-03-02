@@ -204,7 +204,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 28, y: 180}
+  m_AnchoredPosition: {x: 28, y: 132}
   m_SizeDelta: {x: 402.5096, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &409298259
@@ -382,7 +382,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1050271209193134616, guid: a7840696e0d454fb6884358ff13ea488, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -173
+      value: -116
       objectReference: {fileID: 0}
     - target: {fileID: 1050271209193134616, guid: a7840696e0d454fb6884358ff13ea488, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -516,7 +516,7 @@ Skybox:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1144512365}
   m_Enabled: 1
-  m_CustomSkybox: {fileID: 0}
+  m_CustomSkybox: {fileID: 2100000, guid: a3a02bda0a9032049ad25627480b5d20, type: 2}
 --- !u!81 &1144512367
 AudioListener:
   m_ObjectHideFlags: 0
@@ -876,7 +876,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1356289803148563366, guid: 16db4f36d61064323bd2e81d14a53055, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 275
+      value: 207
       objectReference: {fileID: 0}
     - target: {fileID: 1356289803148563366, guid: 16db4f36d61064323bd2e81d14a53055, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
