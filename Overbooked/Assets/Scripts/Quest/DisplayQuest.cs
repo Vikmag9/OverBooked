@@ -18,6 +18,8 @@ public class DisplayQuest : MonoBehaviour
     public Slider slider;
     public Slider completeSlider;
 
+    public bool completeSliderActive = false;
+
     private void Start()
     {
         //this.questWindow.SetActive(false);
@@ -32,6 +34,8 @@ public class DisplayQuest : MonoBehaviour
         this.nameText.text = quest.name;
         //descriptionText.text = quest.description;
         this.iconImage.sprite = quest.icon;
+        this.completeSlider.gameObject.SetActive(false);
+        completeSliderActive = false;
     }
 
     public void CloseQuestWindow() { this.questWindow.SetActive(false); }
@@ -43,6 +47,10 @@ public class DisplayQuest : MonoBehaviour
 
     public void SetCompleteSliderValue(float value)
     {
-        this.completeSlider.value = value;
+        if (completeSliderActive) // Visa complete slider bara om den är aktiv
+        {
+            this.completeSlider.value = value;
+        }
     }
+
 }

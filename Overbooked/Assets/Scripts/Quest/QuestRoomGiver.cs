@@ -15,7 +15,7 @@ public class QuestRoomGiver : MonoBehaviour
     public int roomId;
     private GameObject questCanvas;
     private DisplayQuest questWindowInRoom;
-    private int performQuest;
+    private int performQuest = 0;
     private float questTimer = 40f;
     private bool timerIsRunning = true;
 
@@ -31,6 +31,8 @@ public class QuestRoomGiver : MonoBehaviour
     public List<QuestObjects> specialQuests;
 
     public AudioSource phoneSound;
+
+    private int flag = 0;
 
 
 
@@ -121,7 +123,7 @@ public class QuestRoomGiver : MonoBehaviour
         performQuest = 0;
         questInRoom.timer = questTimer;
         questInRoom.isActive = true;
-        questWindowInRoom.SetCompleteSliderValue(performQuest);
+        //questWindowInRoom.SetCompleteSliderValue(performQuest);
         questWindowInRoom.OpenQuestWindow(questInRoom);
 
         if(questInRoom.type.goalType == GoalType.Special)
@@ -185,10 +187,12 @@ public class QuestRoomGiver : MonoBehaviour
         
         if (id == roomId && CheckRequirements(id))
         {
-            
-            performQuest += 1;
+            questWindowInRoom.completeSlider.gameObject.SetActive(true);
+            questWindowInRoom.completeSliderActive = true;
+
+            performQuest = performQuest + 1;
             questWindowInRoom.SetCompleteSliderValue(performQuest);
-            if (performQuest >= 3)
+            if (performQuest >= 6)
             {
                 float remainingTimePercentage = this.questInRoom.timer / questTimer;
                 int reward;
@@ -205,8 +209,8 @@ public class QuestRoomGiver : MonoBehaviour
                 {
                     reward = 2;
                 }
-
-                Debug.Log("Du ?r i rummet och utf?r en quest");
+                performQuest = 0;
+                flag = 0;
                 //this.questInRoom.isActive = false;
                 
                 questManager.completeQuestSound.Play();
@@ -236,6 +240,7 @@ public class QuestRoomGiver : MonoBehaviour
             //StartCoroutine(SetQuestActive(2f));
             questManager.gm.setGold(gold);
             answerThePhone = false;
+            performQuest = -1;
         
 
     }
