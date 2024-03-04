@@ -15,7 +15,7 @@ public class QuestRoomGiver : MonoBehaviour
     public int roomId;
     private GameObject questCanvas;
     private DisplayQuest questWindowInRoom;
-    private int performQuest;
+    private int performQuest = 0;
     private float questTimer = 40f;
     private bool timerIsRunning = true;
 
@@ -185,10 +185,10 @@ public class QuestRoomGiver : MonoBehaviour
         
         if (id == roomId && CheckRequirements(id))
         {
-            
+            Debug.Log(performQuest);
             performQuest += 1;
             questWindowInRoom.SetCompleteSliderValue(performQuest);
-            if (performQuest >= 3)
+            if (performQuest >= 6)
             {
                 float remainingTimePercentage = this.questInRoom.timer / questTimer;
                 int reward;
