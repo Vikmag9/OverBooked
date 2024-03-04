@@ -158,7 +158,8 @@ public class QuestRoomGiver : MonoBehaviour
             SpawnQuest();
             answerThePhone = true;
             spawnQuestActive = false;
-            
+            EventManager.current.onRoomEnter += PerformQuest;
+
 
         }
 
@@ -171,6 +172,7 @@ public class QuestRoomGiver : MonoBehaviour
         {
             
             performQuest += 1;
+            questWindowInRoom.SetCompleteSliderValue(performQuest);
             if (performQuest >= 3)
             {
                 float remainingTimePercentage = this.questInRoom.timer / questTimer;
@@ -190,16 +192,20 @@ public class QuestRoomGiver : MonoBehaviour
                 }
 
                 Debug.Log("Du ?r i rummet och utf?r en quest");
-                this.questInRoom.isActive = false;
-                DeactivateQuest(reward);
-                questManager.completeQuestSound.Play();
-                EventManager.current.QuestDeactive();
+                //this.questInRoom.isActive = false;
                 
+                questManager.completeQuestSound.Play();
+                DeactivateQuest(reward);
+
+
                 if (questInRoom.type.goalType == GoalType.Special)
                 {
                     phoneSound.Pause();
                 }
-                
+                EventManager.current.QuestDeactive();
+                EventManager.current.onRoomEnter -= PerformQuest;
+
+
             }
         }
 

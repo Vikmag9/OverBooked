@@ -19,6 +19,8 @@ public class pickup_item : MonoBehaviour
 
     private GameObject pickupHand;
     private GameObject pickedUpItem;
+    private BoxCollider boxCollider;
+    private Rigidbody rbPickup;
 
     public GameObject bucket;
     private Vector3 originalPosition;
@@ -39,16 +41,20 @@ public class pickup_item : MonoBehaviour
     void ChangePosition(GameObject objectHit)
     {
             objectHit.transform.position = pickupHand.transform.position;
-            objectHit.GetComponent<Collider>().enabled = false;
-            objectHit.GetComponent<Rigidbody>().useGravity = false;
-            
+            //objectHit.GetComponent<BoxCollider>().enabled = false;
+            //objectHit.GetComponent<Rigidbody>().useGravity = false;
+            boxCollider.enabled = false;
+            rbPickup.useGravity = false;
+
     }
 
     void DropItem()
     {
-        Debug.Log("Drop Item");
-            pickedUpItem.GetComponent<Collider>().enabled = true;
-            pickedUpItem.GetComponent<Rigidbody>().useGravity = true;
+            Debug.Log("Drop Item");
+        //pickedUpItem.GetComponent<BoxCollider>().enabled = true;
+        //pickedUpItem.GetComponent<Rigidbody>().useGravity = true;
+            boxCollider.enabled = true;
+            rbPickup.useGravity = true;
             pickedUpItem = null;
             canPickup = true;
             holding = false;
@@ -123,6 +129,8 @@ public class pickup_item : MonoBehaviour
             pickup.Enable();
         
             pickedUpItem = other.gameObject;
+            boxCollider = pickedUpItem.GetComponent<BoxCollider>();
+            rbPickup = pickedUpItem.GetComponent<Rigidbody>();
             inRangeOfItem = true;
         }
         
@@ -150,7 +158,7 @@ public class pickup_item : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Pickupable") && canPickup == true)
         {
             pickup.Disable();
-            pickedUpItem = null;
+            //pickedUpItem = null;
             inRangeOfItem = false;
             holding = false;
         }

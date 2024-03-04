@@ -16,6 +16,7 @@ public class DisplayQuest : MonoBehaviour
     public GameObject questWindow;
 
     public Slider slider;
+    public Slider completeSlider;
 
     private void Start()
     {
@@ -38,5 +39,10 @@ public class DisplayQuest : MonoBehaviour
     public void SetSliderValue(float value)
     {
         this.slider.value = value;
+    }
+
+    public void SetCompleteSliderValue(float value)
+    {
+        this.completeSlider.value = value;
     }
 }
