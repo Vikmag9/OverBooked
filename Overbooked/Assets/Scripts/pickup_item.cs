@@ -52,7 +52,8 @@ public class pickup_item : MonoBehaviour
             pickedUpItem = null;
             canPickup = true;
             holding = false;
-            
+            inRangeOfItem = false;
+
             EventManager.current.DroppedItem();
             bucket.transform.position = originalPosition;
 
@@ -73,6 +74,9 @@ public class pickup_item : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+            pickup.Enable();
+        
 
         if (canPickup && inRangeOfItem)
         {
@@ -99,12 +103,15 @@ public class pickup_item : MonoBehaviour
     }
 
     void checkKeypress(InputAction.CallbackContext context){
-        if(!holding){
+         
+        if (!holding && pickedUpItem != null)
+        {
             PickUpItem();
         }
-        else{
+        else if(holding && pickedUpItem != null){
             DropItem();
         }
+        
     }
 
     
