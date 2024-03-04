@@ -208,7 +208,6 @@ public class QuestRoomGiver : MonoBehaviour
                     reward = 2;
                 }
                 performQuest = 0;
-                flag = 0;
                 //this.questInRoom.isActive = false;
                 
                 questManager.completeQuestSound.Play();

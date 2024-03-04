@@ -13417,6 +13417,7 @@ MonoBehaviour:
   - {fileID: 2110074577}
   - {fileID: 1975985989}
   - {fileID: 249371839}
+  backgroundMusic: {fileID: 1973626123}
 --- !u!4 &878080574
 Transform:
   m_ObjectHideFlags: 0
