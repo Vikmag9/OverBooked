@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44987535, g: 0.4999377, b: 0.5755742, a: 1}
+  m_IndirectSpecularColor: {r: 0.44987512, g: 0.4999377, b: 0.5755743, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5316,6 +5316,53 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5674618be94254d4291b5d37622ea054, type: 3}
   m_PrefabInstance: {fileID: 677662323}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &693769155
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 693769157}
+  - component: {fileID: 693769156}
+  m_Layer: 0
+  m_Name: Character
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &693769156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693769155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8add029b1d3998646879ea04a4d0eb0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  girlCharacter: {fileID: 7047103489328754528}
+  boyCharacter: {fileID: 1126854036}
+  characterModels: []
+--- !u!4 &693769157
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693769155}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.44660163, y: 7.1189613, z: -4.43804}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &703178105 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e73dd5514f718e940b65127227e22fbf, type: 3}
@@ -9233,6 +9280,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8add029b1d3998646879ea04a4d0eb0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  girlCharacter: {fileID: 0}
+  boyCharacter: {fileID: 0}
+  characterModels: []
 --- !u!4 &1126854053 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3788393729069559098, guid: c5e0aad1bc22d8d139cb818229b55a9c, type: 3}
@@ -21181,11 +21231,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1418965695061379382, guid: affc9bf69c3dc12e394a1f594390aea6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.01
+      value: 0.81
       objectReference: {fileID: 0}
     - target: {fileID: 1418965695061379382, guid: affc9bf69c3dc12e394a1f594390aea6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -25.71
+      value: -2.57
       objectReference: {fileID: 0}
     - target: {fileID: 1418965695061379382, guid: affc9bf69c3dc12e394a1f594390aea6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -21232,6 +21282,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: affc9bf69c3dc12e394a1f594390aea6, type: 3}
+--- !u!1 &7047103489328754528 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3885000536742975110, guid: affc9bf69c3dc12e394a1f594390aea6, type: 3}
+  m_PrefabInstance: {fileID: 7047103489328754527}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7158869878595928267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22231,3 +22286,4 @@ SceneRoots:
   - {fileID: 461311557}
   - {fileID: 1705429940}
   - {fileID: 7047103489328754527}
+  - {fileID: 693769157}

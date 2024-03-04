@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class CharacterScript : MonoBehaviour
@@ -8,77 +7,41 @@ public class CharacterScript : MonoBehaviour
     public Button startButton;
     public Button boyCharacter;
     public Button girlCharacter;
-    private bool girl = false;
-    private bool boy = false;
-    private Color boyButton;
-    private Color girlButton;
+    private Color boyColor;
+    private Color girlColor;
+    private Color highlightedColor = new Color(1f, 0.5f, 0f, 0.6f); 
 
-    private int selectedCharacter = 0;
- 
     void Start()
     {
         startButton.gameObject.SetActive(false);
-        boyButton = boyCharacter.image.color;
-        girlButton = girlCharacter.image.color;
+        boyColor = boyCharacter.GetComponent<Image>().color;
+        girlColor = girlCharacter.GetComponent<Image>().color;
     }
 
     public void GirlClicked()
     {
-        girl = !girl;
-        HighlightCharacterButton(girlCharacter);
-        selectedCharacter = 1;
-
-        if (girl)
-        {
-            if (boy)
-            {
-                boyCharacter.image.color = boyButton;
-                boyButton.a = 1f;
-            }
-            OnCharacterButtonClicked();
-        } else
-        {
-            startButton.gameObject.SetActive(false);
-            girlCharacter.image.color = girlButton;
-            girlButton.a = 1f;
-        }
+        CharacterSelection.selectedCharacter = 1;
+        UpdateCharacterButtons();
     }
-
 
     public void BoyClicked()
     {
-        boy = !boy;
-        HighlightCharacterButton(boyCharacter);
-        selectedCharacter = 0;
-        if (boy)
-        {
-            if (girl)
-            {
-                girlCharacter.image.color = girlButton;
-                girlButton.a = 1f;
-            }
+        CharacterSelection.selectedCharacter = 0;
+        UpdateCharacterButtons();
+    }
 
-            OnCharacterButtonClicked();
+    void UpdateCharacterButtons()
+    {
+        if (CharacterSelection.selectedCharacter == 1)
+        {
+            boyCharacter.GetComponent<Image>().color = boyColor; 
+            girlCharacter.GetComponent<Image>().color = highlightedColor; 
         }
         else
         {
-            startButton.gameObject.SetActive(false);
-            boyCharacter.image.color = boyButton;
-            boyButton.a = 1f;
+            girlCharacter.GetComponent<Image>().color = girlColor;
+            boyCharacter.GetComponent<Image>().color = highlightedColor; 
         }
-    }
-
-    public void HighlightCharacterButton(Button button)
-    {
-        Color highlightColor = Color.yellow; // Du kan justera färgen efter dina preferenser
-        highlightColor.a = 0.5f;
-        button.image.color = highlightColor;
-    }
-
-    public void OnCharacterButtonClicked()
-    {
         startButton.gameObject.SetActive(true);
     }
-
-    public int getCharacterNum(){return selectedCharacter;}
 }

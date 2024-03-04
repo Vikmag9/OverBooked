@@ -10,9 +10,11 @@ public class PlayerManager : MonoBehaviour
     private int life = 3;
     private bool gameOver = false;
 
+    public GameObject girlCharacter;
+    public GameObject boyCharacter;
+
     public List<GameObject> characterModels;
 
-    private CharacterScript characterScript; 
 
     public int getPlayerCurrentLevel()
     {
@@ -29,17 +31,26 @@ public class PlayerManager : MonoBehaviour
         //Physics.IgnoreLayerCollision(7, 8);
         GameObject[] goArray = FindGameObjectsWithLayer(7);
 
-        public int characterNum = characterScript.getCharacterNum();
+        int characterNum = CharacterSelection.selectedCharacter;
 
-        if(characterNum == 0){
-            characterModels[characterNum].SetActive(true);
-            characterModels[characterNum + 1].SetActive(false);
-        }else{
-            characterModels[characterNum].SetActive(true);
-            characterModels[characterNum - 1].SetActive(false);
+        //characterModels[characterNum].SetActive(true);
+        //characterModels[1 - characterNum].SetActive(false);
+
+        if (characterNum == 1)
+        {
+            // Visa tjejkarakteren och dölj killkarakteren
+            girlCharacter.SetActive(true);
+            boyCharacter.SetActive(false);
+        }
+        else
+        {
+            // Visa killkarakteren och dölj tjejkarakteren
+            girlCharacter.SetActive(false);
+            boyCharacter.SetActive(true);
         }
 
-        for(int i = 0;  i < goArray.Length; i++)
+
+        for (int i = 0;  i < goArray.Length; i++)
         {
             Physics.IgnoreCollision(goArray[i].GetComponent<Collider>(), GetComponent<Collider>());
         }

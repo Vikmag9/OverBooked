@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.63445455, g: 0.873444, b: 0.99061686, a: 1}
+  m_IndirectSpecularColor: {r: 0.6344778, g: 0.8734658, b: 0.99061686, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -849,7 +849,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Rob Banks
+  m_text: Rob
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b18f6ba80ce704287bf8dab30c6ea358, type: 2}
   m_sharedMaterial: {fileID: -7599286355620811015, guid: b18f6ba80ce704287bf8dab30c6ea358, type: 2}
@@ -1644,7 +1644,6 @@ MonoBehaviour:
   startButton: {fileID: 278116250}
   boyCharacter: {fileID: 184142026}
   girlCharacter: {fileID: 592957321}
-  selectedCharacter: 0
 --- !u!4 &1210321458
 Transform:
   m_ObjectHideFlags: 0
@@ -1687,7 +1686,7 @@ Skybox:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1283652286}
   m_Enabled: 1
-  m_CustomSkybox: {fileID: 0}
+  m_CustomSkybox: {fileID: 2100000, guid: 7b0f2096b49ccfb4f8b47c8084d650fa, type: 2}
 --- !u!81 &1283652288
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1820,7 +1819,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sandy Fish
+  m_text: Sally
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b18f6ba80ce704287bf8dab30c6ea358, type: 2}
   m_sharedMaterial: {fileID: -7599286355620811015, guid: b18f6ba80ce704287bf8dab30c6ea358, type: 2}
