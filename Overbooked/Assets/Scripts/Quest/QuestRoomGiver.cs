@@ -121,6 +121,7 @@ public class QuestRoomGiver : MonoBehaviour
         performQuest = 0;
         questInRoom.timer = questTimer;
         questInRoom.isActive = true;
+        questWindowInRoom.SetCompleteSliderValue(performQuest);
         questWindowInRoom.OpenQuestWindow(questInRoom);
 
         if(questInRoom.type.goalType == GoalType.Special)

@@ -18,7 +18,7 @@ public class ElevatorMovement : MonoBehaviour
 
     public int currentLevel;
     private int beforeLevel;
-    private float elevatorSpeed = 150f;
+    private float elevatorSpeed = 250f;
 
     public ElevatorCall ec;
 

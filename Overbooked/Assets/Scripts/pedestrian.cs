@@ -28,7 +28,7 @@ public class pedestrian : MonoBehaviour
     {
         while(true)
         {
-            yield return new WaitForSeconds(35);
+            yield return new WaitForSeconds(30);
             
             Destroy(this.gameObject);
             Debug.Log("Destroyed");
