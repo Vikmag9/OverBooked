@@ -133,6 +133,20 @@ public class QuestRoomGiver : MonoBehaviour
 
     private void CountDownQuestTimer()
     {
+        questInRoom.timer -= Time.deltaTime;
+        questWindowInRoom.SetSliderValue(questInRoom.timer);
+
+        if (questInRoom.timer <= 0 && questInRoom.isActive)
+        {
+            questWindowInRoom.CloseQuestWindow();
+            EventManager.current.LoseLife();
+            questManager.FailureSound.Play();
+            questInRoom.timer = 10000000000;
+        }
+    }
+    /*
+    private void CountDownQuestTimer()
+    {
         questInRoom.timer -= 1f * Time.deltaTime;
         questWindowInRoom.SetSliderValue(questInRoom.timer);
 
@@ -149,7 +163,7 @@ public class QuestRoomGiver : MonoBehaviour
 
         }
     }
-
+    */
     public IEnumerator SetQuestActive(float waitTime)
     {
         while (spawnQuestActive)
