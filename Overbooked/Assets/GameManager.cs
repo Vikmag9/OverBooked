@@ -10,13 +10,14 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private float timeRemaining = 120;
-    private float speedUpTime = 60;
     private bool timerIsRunning = false;
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI goldText;
     private int gold = 0;
     public List<Image> heartImages;
     private int lifesLeft = 3;
+    private float speedUpTime = 30;
+    public AudioSource backgroundMusic;
 
     //text
     private Color normalTextColor;
@@ -86,6 +87,7 @@ public class GameManager : MonoBehaviour
             if (timeRemaining <= speedUpTime)
             {
                 EventManager.current.SpeedUpGame();
+                SpeedUpMusic();
             }
         }
     }
@@ -128,6 +130,12 @@ public class GameManager : MonoBehaviour
     private void ChangeTimerColor()
     {
         timerText.color = Color.red; // Ändra textens färg till rött
+    }
+
+    private void SpeedUpMusic()
+    {
+        if (!backgroundMusic.isPlaying) return;
+        backgroundMusic.pitch = 2f; // Du kan justera 2f till den önskade hastigheten
     }
 
 }

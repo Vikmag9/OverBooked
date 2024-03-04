@@ -36,6 +36,7 @@ public class DisplayQuest : MonoBehaviour
         this.iconImage.sprite = quest.icon;
         this.completeSlider.gameObject.SetActive(false);
         completeSliderActive = false;
+
     }
 
     public void CloseQuestWindow() { this.questWindow.SetActive(false); }

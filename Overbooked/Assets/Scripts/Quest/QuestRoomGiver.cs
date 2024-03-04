@@ -32,8 +32,6 @@ public class QuestRoomGiver : MonoBehaviour
 
     public AudioSource phoneSound;
 
-    private int flag = 0;
-
 
 
     void Start()
