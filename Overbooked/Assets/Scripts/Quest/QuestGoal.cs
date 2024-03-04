@@ -20,5 +20,6 @@ public class QuestGoal
 public enum GoalType
 {
     Clean,
-    Roomservice
+    Roomservice,
+    Special
 }

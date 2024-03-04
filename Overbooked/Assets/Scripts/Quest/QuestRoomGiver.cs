@@ -22,9 +22,15 @@ public class QuestRoomGiver : MonoBehaviour
     private bool spawnQuestActive = true;
     private bool clean;
     private bool roomservic;
+    private bool answerThePhone = true;
 
     private bool guestInRoom = false;
     private bool canSpawnQuest = true;
+
+    public bool specialRoom;
+    public List<QuestObjects> specialQuests;
+
+    public AudioSource phoneSound;
 
 
 
@@ -49,6 +55,22 @@ public class QuestRoomGiver : MonoBehaviour
 
     }
 
+    private void CheckSpecialRoom()
+    {
+        if (specialRoom)
+        {
+            questInRoom = GetSpecialQuest();
+        }
+        else
+        {
+            questInRoom = questManager.getRandomQuest();
+        }
+    }
+
+    private QuestObjects GetSpecialQuest()
+    {
+        return specialQuests[UnityEngine.Random.Range(0, specialQuests.Count)];
+    }
 
     private void HandlePopUpMenuState(bool isActive)
     {
@@ -81,9 +103,9 @@ public class QuestRoomGiver : MonoBehaviour
             }
         }
 
-        if (guestInRoom && canSpawnQuest)
+        if (guestInRoom && canSpawnQuest || specialRoom && canSpawnQuest)
         {
-            StartCoroutine(SetQuestActive(UnityEngine.Random.Range(1f, 5f)));
+            StartCoroutine(SetQuestActive(UnityEngine.Random.Range(5f, 30f)));
             canSpawnQuest = false;
             
         }
@@ -93,12 +115,18 @@ public class QuestRoomGiver : MonoBehaviour
 
     private void SpawnQuest()
     {
-        
-        questInRoom = questManager.getRandomQuest();
+
+        //questInRoom = questManager.getRandomQuest();
+        CheckSpecialRoom();
         performQuest = 0;
         questInRoom.timer = questTimer;
         questInRoom.isActive = true;
         questWindowInRoom.OpenQuestWindow(questInRoom);
+
+        if(questInRoom.type.goalType == GoalType.Special)
+        {
+            phoneSound.Play();
+        }
 
     }
 
@@ -110,7 +138,7 @@ public class QuestRoomGiver : MonoBehaviour
         if (questInRoom.timer <= 0)
         {
             //if (quest.isActive)
-            Debug.Log("hsfjsjfop");
+            
             questWindowInRoom.CloseQuestWindow();
             DeactivateQuest(0);
             //EventManager.current.LoseLife();
@@ -128,6 +156,7 @@ public class QuestRoomGiver : MonoBehaviour
 
             yield return new WaitForSeconds(waitTime);
             SpawnQuest();
+            answerThePhone = true;
             spawnQuestActive = false;
             
 
@@ -165,6 +194,12 @@ public class QuestRoomGiver : MonoBehaviour
                 DeactivateQuest(reward);
                 questManager.completeQuestSound.Play();
                 EventManager.current.QuestDeactive();
+                
+                if (questInRoom.type.goalType == GoalType.Special)
+                {
+                    phoneSound.Pause();
+                }
+                
             }
         }
 
@@ -174,10 +209,12 @@ public class QuestRoomGiver : MonoBehaviour
        
         
             this.questInRoom.isActive = false;
+            
             spawnQuestActive = true;
             canSpawnQuest = true;
             //StartCoroutine(SetQuestActive(2f));
             questManager.gm.setGold(gold);
+            answerThePhone = false;
         
 
     }
@@ -202,6 +239,10 @@ public class QuestRoomGiver : MonoBehaviour
             return true;
         }
         else if (this.questInRoom.type.goalType == GoalType.Roomservice && roomservic)
+        {
+            return true;
+        }
+        else if(this.questInRoom.type.goalType == GoalType.Special && answerThePhone)
         {
             return true;
         }
